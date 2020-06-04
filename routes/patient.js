@@ -14,7 +14,7 @@ var resultat;
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hackeddetected",
+  password: "hamza",
   database: "hopital",
 });
 
@@ -23,7 +23,7 @@ con.connect(function (err) {
   console.log("Database is Connected!");
 });
 
-router.get("/allPatient", (req, res) => {
+router.get("/allPatients", (req, res) => {
   var sql = "select * from patient";
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -66,5 +66,57 @@ router.post("/patient", (req, res) => {
     } else res.send(data);
   });
 });
+
+router.put("/patient/:id", (req, res) => {
+  const data = req.body;
+  console.log(data);
+  var sql = `UPDATE patient SET
+    nom='${data.nom}',prenom = '${data.prenom}',dateDeNaiss='${data.dateDeNaiss}',sexe='${data.sexe}',adresse='${data.adresse}',tele='${data.tele}',nationalite='${data.nationalite}',cin='${data.cin}',email='${data.email}'
+    WHERE id = '${req.params.id}'`;
+  con.query(sql, function (err, result) {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    } else res.send(result);
+  });
+});
+
+router.get("/patient/:idPatient/AllMedecin", (req, res) => {
+  var sql = `select nom ,prenom from user u where u.id=(select idMedecin from rendezvous where idPatient = '${req.params.idPatient}') `;
+  con.query(sql, function (err, result) {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+    }
+  });
+});
+
+router.get("/medecin/:idMedecin/allPatients", (req, res) => {
+  var sql = `select nom ,prenom from patient p where p.id=(select idPatient from rendezvous where idMedecin = '${req.params.idMedecin}') ;`;
+  con.query(sql, function (err, result) {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    } else {
+      res.send(result);
+      console.log(result);
+    }
+  });
+});
+
+var sql = `select id from rendezvous where idMedecin = ${req.params.idMedecin}`;
+
+// router.delete("/patient/:id", (req, res) => {
+//   var sql = `DELETE FROM patient WHERE id = '${req.params.id}'`;
+//   con.query(sql, function (err, result) {
+//     if (err) {
+//       res.send(err);
+//       console.log(err);
+//     } else res.send(data);
+//   });
+// });
 
 module.exports = router;

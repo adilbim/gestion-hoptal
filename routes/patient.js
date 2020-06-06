@@ -14,7 +14,7 @@ var resultat;
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hamza",
+  password: "hackeddetected",
   database: "hopital",
 });
 
@@ -107,7 +107,7 @@ router.get("/medecin/:idMedecin/allPatients", (req, res) => {
   });
 });
 
-var sql = `select id from rendezvous where idMedecin = ${req.params.idMedecin}`;
+// var sql = `select id from rendezvous where idMedecin = ${req.params.idMedecin}`;
 
 // router.delete("/patient/:id", (req, res) => {
 //   var sql = `DELETE FROM patient WHERE id = '${req.params.id}'`;

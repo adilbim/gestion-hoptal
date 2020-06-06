@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body{
   margin:0 ;
   font-family: 'Baloo Paaji 2', cursive;
@@ -141,10 +142,10 @@ background: #f8f8f8;
 }
 
 .icon:hover .i{
-  color: #6a66df;
+  color: #cac9df;
 }
 .icon:hover{
-  border-right: 8px solid #6a66df;
+  /* border-right: 8px solid #cac9df; */
 }
 
 .dark{

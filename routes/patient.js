@@ -41,6 +41,15 @@ router.get("/patient/:id", (req, res) => {
   });
 });
 
+router.get("/patient/chercher/:cle", (req, res) => {
+  var sql = `select * from patient where 
+  concat(nom , ' ' , prenom , ' ' , tele , ' ' , cin , ' ' , email) like '%${req.params.cle}%';`;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    else res.send(result);
+  });
+});
+
 router.post("/patient", (req, res) => {
   //   const obj ={
 
@@ -106,6 +115,9 @@ router.get("/medecin/:idMedecin/allPatients", (req, res) => {
     }
   });
 });
+
+
+
 
 // var sql = `select id from rendezvous where idMedecin = ${req.params.idMedecin}`;
 

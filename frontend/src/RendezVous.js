@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ListItemPatient from './ListItemPatient';
 import ListItemMedecin from './ListItemMedecin';
 import axios from 'axios';
+import RDVCalender from './RDVCalender';
 const styles = {
     root: {
         width: "100%",
@@ -78,15 +79,15 @@ render(){
           </div>);  
     }
     }else
-    if(!this.state.medecinChosen){
+    if(!this.state.medecinChosen && this.state.patientChosen){
         render = (<div className={classes.root} id="middle">
                     <RechercheBar />
                     <ListItemMedecin onClick={this.chooseMedecin} />
                     <ListItemMedecin onClick={this.chooseMedecin}/>
                    </div>);
-    } else {
+    } else if(this.state.medecinChosen && this.state.patientChosen) {
         render = (<div className={classes.root} id="middle">
-                      <h1>Calendier</h1> 
+                      <RDVCalender />
                 </div>);
     }                
    return render;

@@ -50,7 +50,7 @@ function ListItemPatient(props){
         </div>
     <div className={`${classes.atribute} ${classes.patientName}`} >{`${data.nom} ${data.prenom}`}</div>
         <div  className={classes.atribute}>{data.cin}</div>
-        <div  className={classes.atribute}>{data.dateDeNaiss.split(":")[0]}</div>
+        <div  className={classes.atribute}>{data.dateDeNaiss.split("T")[0]}</div>
         <div  className={classes.atribute}>{data.tele}</div>
         <div className={classes.iconList}>
           <i className="fa fa-eye" aria-hidden="true"></i>

@@ -44,7 +44,7 @@ function ListItemPatient(props){
     const {classes, data} = props;
 
     return (
-    <div className={classes.listItem} onClick={()=>props.onClick()}>
+    <div className={classes.listItem} onClick={()=>props.onClick(data.id)}>
         <div className={classes.atribute}>
             <i className="fa fa-user-circle x2" aria-hidden="true"></i>
         </div>

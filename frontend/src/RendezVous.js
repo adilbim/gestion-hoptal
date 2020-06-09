@@ -14,23 +14,47 @@ const styles = {
 class RendezVous extends React.Component{
     constructor(props){
         super(props);
-        this.state = {patientChosen: false, medecinChosen: false, dataPatient: [],serachPatient: [], patient:''};
+        this.state = {patientChosen: false, medecinChosen: false, 
+                      dataPatient: [],serachPatient: [], patient:'',
+                      dataMedecin: []
+        };
         this.handleChange = this.handleChange.bind(this);
+        this.newRendezVous = {
+            dateR: '2020-05-25 12:45:55',
+            service: 'consultation',
+            presence: false,
+            prix: 255.0,
+            date: '2020-05-25 12:45:55',
+            cheminDeBilan: 'fill it later',
+            idPatient: '1401',
+            idMedecin: '1102'
+        };
     }
 
-    choosePatient = () => {
+    choosePatient = id => {
         this.setState({patientChosen: true});
-        alert('patient choisi');
+        this.newRendezVous.idPatient = id;
+        alert('patient choisi', id);
+        
     }
 
-    chooseMedecin = () => {
-        this.setState({medecinChosen: true}); alert('medecin choisi');
+    chooseMedecin = id => {
+        this.setState({medecinChosen: true}); 
+        this.newRendezVous.idMedecin = id;
+        alert('medecin choisi',id);
+        console.log(this.newRendezVous);
+    }
+
+    getDate = date => {
+        this.newRendezVous.date = date;
+        axios.post('api/RendezVous',this.newRendezVous);
+        //console.log(this.newRendezVous);
     }
   async componentDidMount(){
        const dataPatient = await axios('/api/allPatients');
-       //const dataMedecin = await axios()
-       this.setState({dataPatient: dataPatient.data});
-       console.log(dataPatient.data);
+       const dataMedecin = await axios('/api/allMedecin');
+       this.setState({dataPatient: dataPatient.data, dataMedecin: dataMedecin.data});
+       //console.log(dataPatient.data);
     }
    handleChange(e) {
         this.setState({
@@ -80,14 +104,14 @@ render(){
     }
     }else
     if(!this.state.medecinChosen && this.state.patientChosen){
+        let allMedecin = this.state.dataMedecin.map(elm => <ListItemMedecin key={elm.id} data={elm} onClick={this.chooseMedecin} />)
         render = (<div className={classes.root} id="middle">
                     <RechercheBar />
-                    <ListItemMedecin onClick={this.chooseMedecin} />
-                    <ListItemMedecin onClick={this.chooseMedecin}/>
+                    {allMedecin} 
                    </div>);
     } else if(this.state.medecinChosen && this.state.patientChosen) {
         render = (<div className={classes.root} id="middle">
-                      <RDVCalender />
+                      <RDVCalender chooseRDV={this.getDate} />
                 </div>);
     }                
    return render;

@@ -1,5 +1,6 @@
 import * as React from "react";
 import Paper from "@material-ui/core/Paper";
+import moment from 'moment';
 import {
   ViewState,
   EditingState,
@@ -7,6 +8,7 @@ import {
 } from "@devexpress/dx-react-scheduler";
 import {
   ViewSwitcher,
+  WeekView,
   Toolbar,
   Scheduler,
   DayView,
@@ -14,7 +16,9 @@ import {
   Appointments,
   AppointmentForm,
   AppointmentTooltip,
-  ConfirmationDialog
+  ConfirmationDialog,
+  DateNavigator,
+  TodayButton
 } from "@devexpress/dx-react-scheduler-material-ui";
 
 //import { appointments } from "../../../demo-data/appointments";
@@ -26,7 +30,7 @@ export default class RDVCalender extends React.PureComponent {
     //   data: appointments,
       data: [],
       currentDate: new Date(),
-      currentViewName: "Month"
+      currentViewName: "Month", now: 'hola'
     };
     this.currentViewNameChange = currentViewName => {
       this.setState({ currentViewName });
@@ -36,12 +40,23 @@ export default class RDVCalender extends React.PureComponent {
 
   commitChanges({ added, changed, deleted }) {
     this.setState(state => {
-      let { data, currentViewName } = state;
+      let { data, now} = state;
+      //var now = '';
       if (added) {
         const startingAddedId =
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        data = [...data, { id: startingAddedId, ...added }];
-        currentViewName = "Month";
+          data = [...data, { id: startingAddedId, ...added }];
+          let date = [
+            data[0].startDate.toString().split(" ")[1],
+            data[0].startDate.toString().split(" ")[2],
+            data[0].startDate.toString().split(" ")[3],
+            data[0].startDate.toString().split(" ")[4]
+          ]
+          //moment(date.join(" ")).format('YYYY-MM-DD hh:mm:ss');
+           now = 'tfo'
+          
+          
+          
       }
       if (changed) {
         data = data.map(appointment =>
@@ -53,9 +68,11 @@ export default class RDVCalender extends React.PureComponent {
       if (deleted !== undefined) {
         data = data.filter(appointment => appointment.id !== deleted);
       }
-
-      return { data, currentViewName };
+      
+      return {data, now};
     });
+    console.log(this.state.now);
+    //this.props.chooseRDV(now);
   }
 
   render() {
@@ -65,7 +82,8 @@ export default class RDVCalender extends React.PureComponent {
       <Paper>
         <Scheduler data={data} height={660}>
           <ViewState
-            currentDate={currentDate}
+            // currentDate={currentDate}
+            defaultCurrentDate={new Date()}
             currentViewName={currentViewName}
             onCurrentViewNameChange={this.currentViewNameChange}
           />
@@ -73,8 +91,11 @@ export default class RDVCalender extends React.PureComponent {
           <IntegratedEditing />
           <MonthView startDayHour={9} endDayHour={19} />
           <DayView />
+          <WeekView />
           <ConfirmationDialog />
           <Toolbar />
+          <DateNavigator />
+          <TodayButton />
           <ViewSwitcher />
           <Appointments />
           <AppointmentTooltip showOpenButton showDeleteButton />

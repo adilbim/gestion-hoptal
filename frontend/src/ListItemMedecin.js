@@ -17,7 +17,10 @@ const styles = {
         padding: "15px",
         justifyContent: "space-between",
         backgroundColor: "#e1e0f8",
-        margin: "5px 20px"
+        margin: "5px 20px",
+        "&:hover":{
+          backgroundColor: "#cac9df"
+        }
       },
     
     atribute :{
@@ -38,16 +41,16 @@ const styles = {
 
 function ListItemMedecin(props){
   
-    const {classes} = props;
+    const {classes, data} = props;
 
     return (
-    <div className={classes.listItem} onClick={()=>props.onClick()}>
+    <div className={classes.listItem} onClick={()=>props.onClick(data.id)}>
         <div className={classes.atribute}>
             <i className="fa fa-user-circle x2" aria-hidden="true"></i>
         </div>
-        <div className={`${classes.atribute} ${classes.patientName}`} >NOM & PRENOM</div>
-        <div  className={classes.atribute}>Medecin generale</div>
-        <div  className={classes.atribute}>heart</div>
+        <div className={`${classes.atribute} ${classes.patientName}`} >{`Dr.${data.nom} ${data.prenom}`}</div>
+        <div  className={classes.atribute}>{data.sexe}</div>
+        <div  className={classes.atribute}>Speciality</div>
         <div className={classes.iconList}>
           {/* <i className="fa fa-eye" aria-hidden="true"></i>
           <i className="fa fa-pencil" aria-hidden="true"></i> */}

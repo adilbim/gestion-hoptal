@@ -30,7 +30,7 @@ export default class RDVCalender extends React.PureComponent {
     //   data: appointments,
       data: [],
       currentDate: new Date(),
-      currentViewName: "Month", now: 'hola'
+      currentViewName: "Month", now: {}
     };
     this.currentViewNameChange = currentViewName => {
       this.setState({ currentViewName });
@@ -52,11 +52,8 @@ export default class RDVCalender extends React.PureComponent {
             data[0].startDate.toString().split(" ")[3],
             data[0].startDate.toString().split(" ")[4]
           ]
-          //moment(date.join(" ")).format('YYYY-MM-DD hh:mm:ss');
-           now = 'tfo'
-          
-          
-          
+          now.date = moment(date.join(" ")).format('YYYY-MM-DD hh:mm:ss'); 
+          now.title = data[0].title;  
       }
       if (changed) {
         data = data.map(appointment =>
@@ -70,9 +67,8 @@ export default class RDVCalender extends React.PureComponent {
       }
       
       return {data, now};
-    });
-    console.log(this.state.now);
-    //this.props.chooseRDV(now);
+    },()=> this.props.chooseRDV(this.state.now));
+   //
   }
 
   render() {

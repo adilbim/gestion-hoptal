@@ -45,8 +45,9 @@ class RendezVous extends React.Component{
         console.log(this.newRendezVous);
     }
 
-    getDate = date => {
-        this.newRendezVous.date = date;
+    getDate = data => {
+        this.newRendezVous.date = data.date;
+        this.newRendezVous.service = data.title;
         axios.post('api/RendezVous',this.newRendezVous);
         //console.log(this.newRendezVous);
     }

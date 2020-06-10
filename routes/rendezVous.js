@@ -44,7 +44,7 @@ router.get("/rendezVous/patient/:idPatient", (req, res) => {
   });
   
 router.get("/rendezVous/medecin/:idMedecin", (req,res)=> {
-   var sql = `select * from rendezvous where idMedecin = ${req.params.idMedecin}`;
+   var sql = `select id, service title, date startDate from rendezvous where idMedecin = ${req.params.idMedecin}`;
    con.query(sql, (err, result) => {
     if (err) throw err;
     else {

@@ -4,6 +4,7 @@ import ListItemPatient from './ListItemPatient';
 import ListItemMedecin from './ListItemMedecin';
 import axios from 'axios';
 import RDVCalender from './RDVCalender';
+import moment from 'moment';
 const styles = {
     root: {
         width: "100%",
@@ -16,7 +17,7 @@ class RendezVous extends React.Component{
         super(props);
         this.state = {patientChosen: false, medecinChosen: false, 
                       dataPatient: [],serachPatient: [], patient:'',
-                      dataMedecin: []
+                      dataMedecin: [], RendezVousMedecin:[]
         };
         this.handleChange = this.handleChange.bind(this);
         this.newRendezVous = {
@@ -29,6 +30,7 @@ class RendezVous extends React.Component{
             idPatient: '1401',
             idMedecin: '1102'
         };
+        this.chooseMedecin = this.chooseMedecin.bind(this);
     }
 
     choosePatient = id => {
@@ -38,11 +40,16 @@ class RendezVous extends React.Component{
         
     }
 
-    chooseMedecin = id => {
-        this.setState({medecinChosen: true}); 
+    async chooseMedecin(id) {
+        
         this.newRendezVous.idMedecin = id;
-        alert('medecin choisi',id);
-        console.log(this.newRendezVous);
+        let data = await axios(`api/rendezVous/medecin/${id}`);
+        
+        data.data.forEach(elm => {
+            elm.startDate = moment(elm.startDate).format('ddd MMM DD YYYY hh:mm:00') + ' GMT+0100 (GMT+01:00)';
+        });
+        this.setState({medecinChosen: true, RendezVousMedecin: data.data}); 
+        console.log(this.state.RendezVousMedecin);
     }
 
     getDate = data => {
@@ -112,7 +119,7 @@ render(){
                    </div>);
     } else if(this.state.medecinChosen && this.state.patientChosen) {
         render = (<div className={classes.root} id="middle">
-                      <RDVCalender chooseRDV={this.getDate} />
+                      <RDVCalender chooseRDV={this.getDate} rendezVous={this.state.RendezVousMedecin}/>
                 </div>);
     }                
    return render;

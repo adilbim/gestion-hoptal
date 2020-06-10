@@ -28,7 +28,7 @@ export default class RDVCalender extends React.PureComponent {
     super(props);
     this.state = {
     //   data: appointments,
-      data: [],
+      data: this.props.rendezVous,
       currentDate: new Date(),
       currentViewName: "Month", now: {}
     };
@@ -36,6 +36,7 @@ export default class RDVCalender extends React.PureComponent {
       this.setState({ currentViewName });
     };
     this.commitChanges = this.commitChanges.bind(this);
+    console.log(this.props.rendezVous);
   }
 
   commitChanges({ added, changed, deleted }) {

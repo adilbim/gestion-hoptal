@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
+var moment = require('moment');
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -83,13 +84,28 @@ router.post("/RendezVous", (req, res) => {
 
 router.put("/rendezVous", (req,res)=> {
   let data = req.body;
-  let sql = `update rendezVous set service = '${data.title}', date = '${data.date}'   where id = '${data.id}';`;
+  let sql = '';
+  console.log(data);
+  if(data.title || data.startDate){
+
+    if (data.title && data.startDate) { 
+    data.startDate = moment(data.startDate).format('YYYY-MM-DD hh:mm:ss');
+    sql = `update rendezVous set service = '${data.title}' , date = '${data.startDate}' where id = '${data.id[0]}';`;
+    }
+    else if(data.startDate) { 
+    data.startDate = moment(data.startDate).format('YYYY-MM-DD hh:mm:ss');
+    sql = `update rendezVous set date = '${data.startDate}' where id = '${data.id[0]}';`;
+    }
+    else if(data.title)
+    sql = `update rendezVous set service = '${data.title}'  where id = '${data.id[0]}';`; 
   con.query(sql, (err, result) => {
+    console.log(sql);
    if (err) throw err;
    else {
      res.send(result);
    }
  });
+}
 })  
 
 

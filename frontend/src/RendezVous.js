@@ -57,6 +57,9 @@ class RendezVous extends React.Component{
         this.newRendezVous.date = data.date;
         this.newRendezVous.service = data.title;
         axios.post('api/RendezVous',this.newRendezVous);
+        }else if(data.action === 'changed'){
+            axios.put('api/rendezVous',{...data});
+            console.log('from axios put request');
         }
         
     }

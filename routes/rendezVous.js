@@ -106,7 +106,19 @@ router.put("/rendezVous", (req,res)=> {
    }
  });
 }
-})  
+});
+
+
+
+router.delete("/rendezVous/:id", (req, res) => {
+  var sql = `delete from rendezVous where id = '${req.params.id}';`;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    else {
+      res.send(result);
+    }
+  });
+});
 
 
 

@@ -5,10 +5,23 @@ import ListItemMedecin from './ListItemMedecin';
 import axios from 'axios';
 import RDVCalender from './RDVCalender';
 import moment from 'moment';
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 const styles = {
     root: {
         width: "100%",
         height: "100%"
+    },
+    floatingButton: {
+        position: "fixed",
+        bottom: "50px",
+        right: "400px",
+        cursor: "pointer",
+        background: "#6a66df",
+        color: "white",
+        "&:hover": {
+            background: "#5f5bc8"
+        }
     }
 }
 
@@ -59,7 +72,10 @@ class RendezVous extends React.Component{
         axios.post('api/RendezVous',this.newRendezVous);
         }else if(data.action === 'changed'){
             axios.put('api/rendezVous',{...data});
-            console.log('from axios put request');
+            //console.log('from axios put request');
+        }else if(data.action === 'deleted'){
+            //console.log('from the delete request');
+            axios.delete(`api/rendezVous/${data.id}`);
         }
         
     }
@@ -82,6 +98,10 @@ class RendezVous extends React.Component{
         let patient = this.state.dataPatient.filter(elm => elm.nom.concat(...[' ',elm.prenom,' ',elm.cin,' ',elm.tele]).toLowerCase().includes(cle.toLowerCase()));
         this.setState({searchPatient: patient});
     }
+
+    addNewPatient = () => {
+        alert('we will add the feature soon, stay tuned!');
+    }
 render(){ 
     const {classes} = this.props;
     const {patient} = this.state;
@@ -101,6 +121,9 @@ render(){
             />
         </div>
         {allPatients}
+        <Fab aria-label="add" className={classes.floatingButton} onClick={this.addNewPatient}>
+        <AddIcon />
+        </Fab>
      </div>);
      if(this.state.patient.length > 0){
         allPatients = this.state.searchPatient.map((elm, indx)=> <ListItemPatient key={elm.id} data={elm} onClick={this.choosePatient} />);

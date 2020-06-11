@@ -66,10 +66,13 @@ export default class RDVCalender extends React.PureComponent {
         now.action = 'changed';
         //console.log(changed);
         now = {...now, ...changed[Object.keys(changed)], id : Object.keys(changed)};
-        console.log(now);
+        //console.log(now);
       }
       if (deleted !== undefined) {
         data = data.filter(appointment => appointment.id !== deleted);
+        //console.log(deleted);
+        now.action = "deleted";
+        now.id = deleted;
       }
       
       return {data, now};

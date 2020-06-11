@@ -48,13 +48,14 @@ export default class RDVCalender extends React.PureComponent {
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
           data = [...data, { id: startingAddedId, ...added }];
           let date = [
-            data[0].startDate.toString().split(" ")[1],
-            data[0].startDate.toString().split(" ")[2],
-            data[0].startDate.toString().split(" ")[3],
-            data[0].startDate.toString().split(" ")[4]
+            data[data.length - 1].startDate.toString().split(" ")[1],
+            data[data.length - 1].startDate.toString().split(" ")[2],
+            data[data.length - 1].startDate.toString().split(" ")[3],
+            data[data.length - 1].startDate.toString().split(" ")[4]
           ]
           now.date = moment(date.join(" ")).format('YYYY-MM-DD hh:mm:ss'); 
-          now.title = data[0].title;  
+          now.title = data[data.length - 1].title;
+          now.action = 'added';
       }
       if (changed) {
         data = data.map(appointment =>
@@ -62,6 +63,9 @@ export default class RDVCalender extends React.PureComponent {
             ? { ...appointment, ...changed[appointment.id] }
             : appointment
         );
+        now.action = 'changed';
+        now = {...now, ...changed[Object.keys(changed)]};
+        console.log(now);
       }
       if (deleted !== undefined) {
         data = data.filter(appointment => appointment.id !== deleted);

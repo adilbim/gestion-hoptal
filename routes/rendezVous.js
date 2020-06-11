@@ -81,6 +81,16 @@ router.post("/RendezVous", (req, res) => {
 
 
 
+router.put("/rendezVous", (req,res)=> {
+  let data = req.body;
+  let sql = `update rendezVous set service = '${data.title}', date = '${data.date}'   where id = '${data.id}';`;
+  con.query(sql, (err, result) => {
+   if (err) throw err;
+   else {
+     res.send(result);
+   }
+ });
+})  
 
 
 

@@ -53,10 +53,12 @@ class RendezVous extends React.Component{
     }
 
     getDate = data => {
+        if(data.action === 'added'){ 
         this.newRendezVous.date = data.date;
         this.newRendezVous.service = data.title;
         axios.post('api/RendezVous',this.newRendezVous);
-        //console.log(this.newRendezVous);
+        }
+        
     }
   async componentDidMount(){
        const dataPatient = await axios('/api/allPatients');

@@ -1,5 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
+import Popup from "reactjs-popup";
+import Demo from "./popup.js";
 
 const styles = {
   // patient:{
@@ -38,8 +40,19 @@ const styles = {
   },
 };
 
-function ListItemPatient1(props) {
-  const { classes, data, id } = props;
+function ListItemPatient(props) {
+  const {
+    classes,
+    data,
+    id,
+    putPatient,
+    putaPatient,
+    patientAModifier,
+    handlePatientdate,
+
+    handle,
+    postPatient,
+  } = props;
   console.log("list");
 
   return (
@@ -55,9 +68,21 @@ function ListItemPatient1(props) {
       <div className={classes.atribute}>{data.tele}</div>
       <div className={classes.iconList}>
         <i className="fa fa-eye" aria-hidden="true"></i>
+        <Demo
+          putPatient={(e) => {
+            putPatient(id);
+          }}
+          putaPatient={(e) => {
+            putaPatient(id);
+          }}
+          patientAModifier={patientAModifier}
+          handle={handle}
+          postPatient={postPatient}
+          handlePatientdate={handlePatientdate}
+        />
       </div>
     </div>
   );
 }
 
-export default withStyles(styles)(ListItemPatient1);
+export default withStyles(styles)(ListItemPatient);

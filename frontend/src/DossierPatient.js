@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Popup from "reactjs-popup";
 import axios from "axios";
-import ListItemPatient from "./ListItemPatient";
+import ListItemPatient from "./ListItemPatient1";
 // import DatePicker from "react-datepicker";
 // import DateTimePicker from "react-datetime-picker";
 import * as Datetime from "react-datetime";

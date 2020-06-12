@@ -1,7 +1,5 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
-import Popup from "reactjs-popup";
-import Demo from "./popup.js";
 
 const styles = {
   // patient:{
@@ -40,19 +38,8 @@ const styles = {
   },
 };
 
-function ListItemPatient(props) {
-  const {
-    classes,
-    data,
-    id,
-    putPatient,
-    putaPatient,
-    patientAModifier,
-    handlePatientdate,
-
-    handle,
-    postPatient,
-  } = props;
+function ListItemPatient1(props) {
+  const { classes, data, id } = props;
   console.log("list");
 
   return (
@@ -68,66 +55,9 @@ function ListItemPatient(props) {
       <div className={classes.atribute}>{data.tele}</div>
       <div className={classes.iconList}>
         <i className="fa fa-eye" aria-hidden="true"></i>
-        <Demo
-          putPatient={(e) => {
-            putPatient(id);
-          }}
-          putaPatient={(e) => {
-            putaPatient(id);
-          }}
-          patientAModifier={patientAModifier}
-          handle={handle}
-          postPatient={postPatient}
-          handlePatientdate={handlePatientdate}
-        />
-        {/* <button
-          onClick={(e) => {
-            e.stopPropagation();
-            putPatient(id);
-          }}
-        >
-          h
-        </button>
-        <Popup
-          trigger={
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-              
-                putPatient(id);
-              }}
-            >
-              
-            </button>
-          }
-          modal
-        >
-          <form onSubmit={postPatient}>
-            <input
-              name="nom"
-              type="text"
-              value={patientAModifier.nom}
-              placeholder="nom"
-              onChange={handle}
-            />
-            <input
-              name="prenom"
-              type="text"
-              value={patientAModifier.prenom}
-              placeholder="prenom"
-              onChange={handle}
-            />
-          </form>
-        </Popup> */}
-
-        {/* // <i
-        //   className="fa fa-pencil"
-        //   aria-hidden="true"
-        //   onClick={() => putPatient(id)}
-        // ></i> */}
       </div>
     </div>
   );
 }
 
-export default withStyles(styles)(ListItemPatient);
+export default withStyles(styles)(ListItemPatient1);

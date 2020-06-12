@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import ListItemPatient from "./ListItemPatient1";
+import ListItemPatient from "./ListItemPatient";
 import ListItemMedecin from "./ListItemMedecin";
 import axios from "axios";
 const styles = {

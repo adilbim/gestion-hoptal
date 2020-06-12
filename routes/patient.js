@@ -14,7 +14,7 @@ var resultat;
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hackeddetected",
+  password: "hamza",
   database: "hopital",
 });
 
@@ -115,9 +115,6 @@ router.get("/medecin/:idMedecin/allPatients", (req, res) => {
     }
   });
 });
-
-
-
 
 // var sql = `select id from rendezvous where idMedecin = ${req.params.idMedecin}`;
 

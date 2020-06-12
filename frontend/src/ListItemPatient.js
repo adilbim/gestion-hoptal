@@ -38,12 +38,11 @@ const styles = {
   },
 };
 
-function ListItemPatient1(props) {
-  const { classes, data, id } = props;
-  console.log("list");
+function ListItemPatient(props) {
+  const { classes, data } = props;
 
   return (
-    <div className={classes.listItem} onClick={() => props.onClick()}>
+    <div className={classes.listItem} onClick={() => props.onClick(data.id)}>
       <div className={classes.atribute}>
         <i className="fa fa-user-circle x2" aria-hidden="true"></i>
       </div>
@@ -55,9 +54,10 @@ function ListItemPatient1(props) {
       <div className={classes.atribute}>{data.tele}</div>
       <div className={classes.iconList}>
         <i className="fa fa-eye" aria-hidden="true"></i>
+        <i className="fa fa-pencil" aria-hidden="true"></i>
       </div>
     </div>
   );
 }
 
-export default withStyles(styles)(ListItemPatient1);
+export default withStyles(styles)(ListItemPatient);

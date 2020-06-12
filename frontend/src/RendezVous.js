@@ -72,7 +72,7 @@ class RendezVous extends React.Component{
         axios.post('api/RendezVous',this.newRendezVous);
         }else if(data.action === 'changed'){
             axios.put('api/rendezVous',{...data});
-            //console.log('from axios put request');
+            console.log('from axios put request');
         }else if(data.action === 'deleted'){
             //console.log('from the delete request');
             axios.delete(`api/rendezVous/${data.id}`);

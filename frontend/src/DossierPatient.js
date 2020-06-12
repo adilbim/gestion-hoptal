@@ -21,12 +21,12 @@ const styles = {
     boxSizing: "border-box",
     margin: " 4px ",
     fontSize: "11px",
-    /*font-size: 16px;*/
+    // /font-size: 16px;/
     backgroundColor: "white",
-    /*background-image: url('searchIcon.png');*/
-    /*background-image: url('search-13-16.png');*/
-    backgroundposition: "10px 10px",
-    /* background-position: 10px 10px;*/
+    // /background-image: url('searchIcon.png');/
+    // /background-image: url('search-13-16.png');/
+    // backgroundposition: "10px 10px",
+    // /* background-position: 10px 10px;*/
     backgroundRepeat: "no-repeat",
     outline: " none",
   },
@@ -507,7 +507,3 @@ class DossierPatient extends Component {
 }
 
 export default withStyles(styles)(DossierPatient);
-
-{
-  /* */
-}

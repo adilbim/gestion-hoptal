@@ -16,7 +16,8 @@ function App() {
       <Menu />
     <Switch>
       <Route exact path="/" render={()=> <Middle />} />
-      <Route exact path="/rendezVous" render={() => /*<RendezVousAcceil />*/ <Planning />} />
+      <Route exact path="/rendezVous" render={() => <RendezVousAcceil />} />
+      <Route exact path="/planning/:idUser" render={(props) => <Planning {...props} />} />
       <Route exact path="/newRendezVous" render={() => <RendezVous />} />
       <Route exact path="/dossierPatient" render={() => <DossierPatient />} />
       <Route exact path="/statistiques" render={() => <Statistiques />} />

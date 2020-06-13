@@ -1,6 +1,7 @@
 import * as React from "react";
 import Paper from "@material-ui/core/Paper";
 import moment from "moment";
+import axios from 'axios';
 import {
   ViewState,
   EditingState,
@@ -37,7 +38,7 @@ export default class RDVCalender extends React.PureComponent {
       this.setState({ currentViewName });
     };
     this.commitChanges = this.commitChanges.bind(this);
-    console.log(this.props.rendezVous);
+    //console.log(this.props.rendezVous);
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -49,15 +50,24 @@ export default class RDVCalender extends React.PureComponent {
           const startingAddedId =
             data.length > 0 ? data[data.length - 1].id + 1 : 0;
           data = [...data, { id: startingAddedId, ...added }];
-          let date = [
+          let startDate = [
             data[data.length - 1].startDate.toString().split(" ")[1],
             data[data.length - 1].startDate.toString().split(" ")[2],
             data[data.length - 1].startDate.toString().split(" ")[3],
             data[data.length - 1].startDate.toString().split(" ")[4],
           ];
-          now.date = moment(date.join(" ")).format("YYYY-MM-DD hh:mm:ss");
+          let endDate = [
+            data[data.length - 1].endDate.toString().split(" ")[1],
+            data[data.length - 1].endDate.toString().split(" ")[2],
+            data[data.length - 1].endDate.toString().split(" ")[3],
+            data[data.length - 1].endDate.toString().split(" ")[4],
+          ];
+          console.log(data);
+          now.endDate = moment(endDate.join(" ")).format("YYYY-MM-DD hh:mm:ss");
+          now.startDate = moment(startDate.join(" ")).format("YYYY-MM-DD hh:mm:ss");
           now.title = data[data.length - 1].title;
           now.action = "added";
+          now.idUser = this.props.match.params.idUser;
         }
         if (changed) {
           data = data.map((appointment) =>
@@ -83,13 +93,23 @@ export default class RDVCalender extends React.PureComponent {
 
         return { data, now };
       },
-      () => this.props.chooseRDV(this.state.now)
+      () => this.saveData(this.state.now)
     );
     //
   }
-   
-  componentDidMount(){
-      console.log('from ComponentDidMount planning!');
+
+  saveData = (data) => {
+    if(data.action === 'added')
+    axios.post('/api/planning',data);
+    //axios.put('api/planning',data);
+    //axios.delete(`api/planning/data.id`);
+  }
+
+  async componentDidMount(){
+     
+      let data = await axios.get(`/api/planning/${this.props.match.params.idUser}`);
+      console.log('from ComponentDidMount planning!',data);
+      this.setState({data: data.data})
   }
   
 

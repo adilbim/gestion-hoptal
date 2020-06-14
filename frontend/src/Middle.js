@@ -3,6 +3,9 @@ import { Statistic, Card, Row, Col } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, ClockCircleOutlined  } from '@ant-design/icons';
 import { withStyles } from "@material-ui/styles";
 import moment from 'moment';
+import StackedBarChart from './StackedBarChart';
+import LineChart  from './LineChart';
+import TinyLineChart from './TinyLineChart';
 
 
 const styles = {
@@ -17,12 +20,31 @@ const styles = {
     flexBasis: "20%",
     padding: "20px",
     background: "#f8f8f8"
+  },
+  charts:{
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    margin: '20px',
+    height: '50%'
   }
 }
 
 class Middle extends React.Component{
 
-   
+   constructor(props){
+     super(props);
+     this.state = {horloge:'hh:mm:ss'}
+   }
+
+   componentDidMount(){
+    this.interval = setInterval(()=>{
+       this.setState({horloge: moment().format('hh:mm:ss')})
+     },1000)
+   }
+   componentWillMount(){
+    clearInterval(this.interval);
+   }
 
     render(){
         const {classes} = this.props ;
@@ -30,20 +52,20 @@ class Middle extends React.Component{
             
             <div id="middle">
       
-            <div class="nav">
-                <div class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</div>
-            <div class="info">
+            <div className="nav">
+                <div className="logout"><i className="fa fa-sign-out" aria-hidden="true"></i> Log out</div>
+            <div className="info">
       
-              <div class="userName">Dr.azouazi </div>
-              <div class="iuser"></div>
+              <div className="userName">Dr.azouazi </div>
+              <div className="iuser"></div>
       
             </div>
            </div>
-        <div class={classes.container} >
+        <div className={classes.container} >
         <Card className={classes.item}>
           <Statistic
             title="L'horloge"
-            value={" " +moment().format('hh:mm:ss')}
+            value={"  "+this.state.horloge}
             precision={2}
             valueStyle={{ color: '#3f8600' }}
             prefix={<ClockCircleOutlined spin />}
@@ -73,16 +95,21 @@ class Middle extends React.Component{
           />
         </Card>
         <Card className={classes.item}>
-          <Statistic
+          {/* <Statistic
             title="Idle"
-            value={9.3}
+            value={}
             precision={2}
             valueStyle={{ color: '#cf1322' }}
             prefix={<ArrowDownOutlined />}
             suffix="%"
-          />
+          /> */}<TinyLineChart />
         </Card>
     
+        </div>
+
+        <div className={classes.charts}>
+          <StackedBarChart />
+          <LineChart />
         </div>
           </div>
          

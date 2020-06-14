@@ -100,9 +100,12 @@ export default class RDVCalender extends React.PureComponent {
 
   saveData = (data) => {
     if(data.action === 'added')
-    axios.post('/api/planning',data);
-    //axios.put('api/planning',data);
-    //axios.delete(`api/planning/data.id`);
+      axios.post('/api/planning',data);
+    else if(data.action === 'deleted'){ 
+      console.log(data);
+      axios.delete(`/api/planning/${data.id}`);
+    }else if(data.action === 'changed')
+      axios.put('/api/planning',data);
   }
 
   async componentDidMount(){

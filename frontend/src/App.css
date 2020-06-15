@@ -77,6 +77,8 @@ background: #f8f8f8;
   font-weight: bold;
   color: black;
   font-size:15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .iuser{

@@ -27,7 +27,16 @@ const styles = {
     justifyContent: 'space-between',
     margin: '20px',
     height: '50%'
+  },
+  userName: {
+    fontSize: '10px',
+    color: "gray",
+    fontWeight: "5px"
+  },
+  name: {
+    height: '15px;'
   }
+
 }
 
 class Middle extends React.Component{
@@ -56,7 +65,10 @@ class Middle extends React.Component{
                 <div className="logout"><i className="fa fa-sign-out" aria-hidden="true"></i> Log out</div>
             <div className="info">
       
-              <div className="userName">Dr.azouazi </div>
+              <div className="userName">
+                <span className={classes.name}>Dr.azouazi</span>
+                <span className={classes.userName}>@azouazi</span>
+              </div>
               <div className="iuser"></div>
       
             </div>

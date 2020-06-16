@@ -48,7 +48,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     margin: `0 0 ${grid}px 0`,
 
     // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
+    background: isDragging ? 'lightgreen' : '#e1e0f8',
 
     // styles we need to apply on draggables
     ...draggableStyle
@@ -97,28 +97,46 @@ class App extends Component {
 
             if (source.droppableId === 'droppable2') {
                 state = { selected: items };
+                
             }
 
             this.setState(state);
         } else {
+            
             const result = move(
                 this.getList(source.droppableId),
                 this.getList(destination.droppableId),
                 source,
                 destination
             );
-
+            
             this.setState({
                 items: result.droppable,
                 selected: result.droppable2
-            });
+            },()=>this.putRendezVous(source.droppableId,this.state,destination.index));
+            //
+            //console.log(source.droppableId)
+            //console.log(this.state.selected[destination.index])
         }
+        
     };
     
+    putRendezVous(droppableId, data,index){
+      
+        if(droppableId === 'droppable'){ 
+            axios.put('/api/listAttente',data.selected[index]);
+        //console.log(data);
+        }else{
+            axios.put('/api/listAttente',data.items[index]);
+        }
+        //console.log(data, index);
+    }
+
     async componentDidMount(){
-      let data = await axios('/api/listAttente');
-      console.log(data);
-      this.setState({items: data.data});
+      let rdvE = await axios('/api/listAttente/E');
+      let rdvR = await axios('/api/listAttente/R');
+      //console.log(data);
+      this.setState({items: rdvE.data, selected: rdvR.data});
     }
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
@@ -168,7 +186,7 @@ class App extends Component {
                 </Droppable>
                 <Droppable droppableId="droppable2">
                     {(provided, snapshot) => (
-                        <div className="rdvE"
+                        <div className="rdvR"
                             ref={provided.innerRef}
                             style={getListStyle(snapshot.isDraggingOver)}>
                             {this.state.selected.map((item, index) => (

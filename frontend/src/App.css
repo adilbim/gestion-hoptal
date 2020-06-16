@@ -190,7 +190,7 @@ background: #f8f8f8;
   justify-content: space-around;
 }
 .rdvE{
-  background: white;
+  background: white !important;
   flex-grow:3;
   padding: 0 5px;
   height:30%;
@@ -211,12 +211,16 @@ background: #f8f8f8;
 }
 
 .rdvR{
-  background:#fbf9fd;
+  background: #ececec !important;
   flex-grow:3;
+  padding: 0 5px;
   height:30%;
-  border: 1px solid #e3e4e1;
+  overflow: auto;
   
+}
 
+.rdvR div.rdvItem {
+  background: lightgreen !important;
 }
 .nameDate{
   display:flex;

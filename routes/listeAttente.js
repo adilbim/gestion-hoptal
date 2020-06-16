@@ -24,8 +24,18 @@ con.connect(function (err) {
   console.log("Database is Connected!");
 });
 
-router.get("/listAttente", (req, res) => {
-  var sql = `select r.id id, r.date date, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.idMedecin = '1102';`;
+router.get("/listAttente/E", (req, res) => {
+  var sql = `select r.id id, r.date date, r.presence, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.presence is false;`;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    else {
+      res.send(result);
+    }
+  });
+});
+
+router.get("/listAttente/R", (req, res) => {
+  var sql = `select r.id id, r.date date, r.presence, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.presence is true;`;
   con.query(sql, (err, result) => {
     if (err) throw err;
     else {
@@ -36,5 +46,16 @@ router.get("/listAttente", (req, res) => {
 
 
 
+router.put('/listAttente', (req, res) => {
+  let data = req.body;
+  sql = `update rendezVous set presence = ${!data.presence}  where id = '${data.id}';`;
+  console.log(sql);
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    else {
+      res.send(result);
+    }
+  });
+});
 
 module.exports = router;

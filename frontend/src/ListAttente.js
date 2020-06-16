@@ -63,7 +63,8 @@ const getListStyle = isDraggingOver => ({
 class App extends Component {
     state = {
         items: [],
-        selected: []
+        selected: [],
+        listMedecin: [], search: '', searchList: [], medecin:''
     };
 
     /**
@@ -135,16 +136,46 @@ class App extends Component {
     async componentDidMount(){
       let rdvE = await axios('/api/listAttente/E');
       let rdvR = await axios('/api/listAttente/R');
+      let listMedecin = await axios('/api/allMedecin');
       //console.log(data);
-      this.setState({items: rdvE.data, selected: rdvR.data});
+      this.setState({items: rdvE.data, selected: rdvR.data, listMedecin: listMedecin.data});
     }
+
+    handleChange = e =>{
+        this.setState({search: e.target.value});
+        this.chercher(e.target.value);
+    }
+
+    chercher = (cle) => {
+        let searchList = this.state.listMedecin.filter((elm) =>
+          elm.nom
+            .concat(...[" ", elm.prenom])
+            .toLowerCase()
+            .includes(cle.toLowerCase())
+        );
+        this.setState({ searchList: searchList });
+      };
+
+    chooseMedecin = id => {
+      this.setState({medecin: id, search: ''});
+    }  
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
+        let listMedecin = [];
+        if(this.state.listMedecin.length > 0 && this.state.search.length > 0){
+        listMedecin = this.state.searchList.map(elm => <div onClick={()=> this.chooseMedecin(elm.id)} className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
+        }else{
+        listMedecin = [];
+        //this.state.listMedecin.map(elm => <div className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
+        }
         return (
           <div id="right">
             <div class="lsearch">
-               <input class="searchList"type="text" placeholder="Chercher Medecin" />
+               <input class="searchList"type="text" onChange={this.handleChange} placeholder="Chercher Medecin" />
+               <div className={`dropDown ${this.state.search.length > 0 && 'showDropDown'}`}>
+                {listMedecin}
+               </div>
                <div class="listInfo">
                  <span>Jan,21 Jeudi</span> <span>|</span> <span>Dr.Bimzagh</span>
                </div>
@@ -172,7 +203,7 @@ class App extends Component {
                                             )}>
                                             {/* {item.content} */}
                                             <div class="nameDate">
-                                            <div class="name"><i class="fa fa-user-circle" aria-hidden="true"></i>{item.nom+' '+ item.prenom}</div>
+                                            <div class="name"><i class="fa fa-user-circle" aria-hidden="true"></i>{' '+item.nom+' '+ item.prenom}</div>
                                             <div class="cin">{item.cin}</div>
                                           </div>
                                             <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>

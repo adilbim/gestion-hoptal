@@ -24,8 +24,8 @@ con.connect(function (err) {
   console.log("Database is Connected!");
 });
 
-router.get("/listAttente/E", (req, res) => {
-  var sql = `select r.id id, r.date date, r.presence, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.presence is false;`;
+router.get("/listAttente/E/:id", (req, res) => {
+  var sql = `select r.id id, r.date date, r.presence, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.idMedecin = '${req.params.id}' and r.presence is false order by date;`;
   con.query(sql, (err, result) => {
     if (err) throw err;
     else {
@@ -34,8 +34,8 @@ router.get("/listAttente/E", (req, res) => {
   });
 });
 
-router.get("/listAttente/R", (req, res) => {
-  var sql = `select r.id id, r.date date, r.presence, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.presence is true;`;
+router.get("/listAttente/R/:id", (req, res) => {
+  var sql = `select r.id id, r.date date, r.presence, p.nom nom, p.prenom prenom, p.cin cin from rendezVous r, patient p where r.idPatient = p.id and r.idMedecin = '${req.params.id}' and r.presence is true order by date;`;
   con.query(sql, (err, result) => {
     if (err) throw err;
     else {

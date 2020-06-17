@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import moment from 'moment';
+import "moment/locale/fr";
+
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -134,11 +136,10 @@ class App extends Component {
     }
 
     async componentDidMount(){
-      let rdvE = await axios('/api/listAttente/E');
-      let rdvR = await axios('/api/listAttente/R');
+      
       let listMedecin = await axios('/api/allMedecin');
       //console.log(data);
-      this.setState({items: rdvE.data, selected: rdvR.data, listMedecin: listMedecin.data});
+      this.setState({listMedecin: listMedecin.data});
     }
 
     handleChange = e =>{
@@ -156,19 +157,23 @@ class App extends Component {
         this.setState({ searchList: searchList });
       };
 
-    chooseMedecin = id => {
-      this.setState({medecin: id, search: ''});
+    chooseMedecin = async elm => {
+        let rdvE = await axios(`/api/listAttente/E/${elm.id}`);
+        let rdvR = await axios(`/api/listAttente/R/${elm.id}`);  
+      this.setState({items: rdvE.data, selected: rdvR.data, medecin: elm, search: ''});
     }  
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
         let listMedecin = [];
         if(this.state.listMedecin.length > 0 && this.state.search.length > 0){
-        listMedecin = this.state.searchList.map(elm => <div onClick={()=> this.chooseMedecin(elm.id)} className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
+        listMedecin = this.state.searchList.map(elm => <div onClick={()=> this.chooseMedecin(elm)} className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
         }else{
         listMedecin = [];
         //this.state.listMedecin.map(elm => <div className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
         }
+        let today = moment();
+        today.local('fr');
         return (
           <div id="right">
             <div class="lsearch">
@@ -177,7 +182,7 @@ class App extends Component {
                 {listMedecin}
                </div>
                <div class="listInfo">
-                 <span>Jan,21 Jeudi</span> <span>|</span> <span>Dr.Bimzagh</span>
+                   <span>{today.format('MMM, DD dddd')}</span> <span>|</span> <span>{'Dr.'+this.state.medecin.nom}</span>
                </div>
              </div>
             <DragDropContext onDragEnd={this.onDragEnd}>

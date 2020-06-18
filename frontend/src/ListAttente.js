@@ -6,6 +6,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import moment from 'moment';
 import "moment/locale/fr";
+import io from "socket.io-client";
 
 
 // fake data generator
@@ -128,18 +129,30 @@ class App extends Component {
       
         if(droppableId === 'droppable'){ 
             axios.put('/api/listAttente',data.selected[index]);
+            this.socket.emit('ListeAttente_presence',{...data.selected[index],idMedecin: this.state.medecin.id});
         //console.log(data);
         }else{
             axios.put('/api/listAttente',data.items[index]);
+            this.socket.emit('ListeAttente_presence2',{...data.items[index],idMedecin: this.state.medecin.id});
         }
         //console.log(data, index);
     }
 
     async componentDidMount(){
-      
+      this.socket = io("http://127.0.0.1:3001");
       let listMedecin = await axios('/api/allMedecin');
-      //console.log(data);
       this.setState({listMedecin: listMedecin.data});
+      this.socket.on('patientPresent', data=> {
+          if(this.state.medecin.id === data.idMedecin)
+            this.setState({selected:[...this.state.selected,data]});
+      });
+      this.socket.on('patient!Present', data=> {
+        if(this.state.medecin.id === data.idMedecin)
+          this.setState({selected:this.state.selected.filter(elm=> elm.id !== data.id),
+            items:[...this.state.items,data]
+           });
+      });
+
     }
 
     handleChange = e =>{

@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+const http = require("http");
+const socketIo = require("socket.io");
 
+////////////////
 var patient = require("./routes/patient");
 var rendezVous = require("./routes/rendezVous");
 var medecin = require("./routes/medecin");
@@ -11,8 +14,37 @@ app.use("/api", rendezVous);
 app.use("/api", medecin);
 app.use('/api', planning);
 app.use("/api", listAttente);
+//////////////////
+
+const server = http.createServer(app);
+const io = socketIo(server);
+app.get("/", (req, res) => {
+  res.send({ the_why: "this route is only for the sockets!" });
+});
+
+io.on("connection", socket => {
+  console.log("New client connected");
+  socket.on('ListeAttente_presence', data => {
+    console.log(data);
+    socket.broadcast.emit('patientPresent',data);
+  });
+  socket.on('ListeAttente_presence2', data => {
+    console.log(data);
+    socket.broadcast.emit('patient!Present',data);
+  });
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+});
 
 
-app.listen(3001, () => {
+
+
+
+
+
+
+
+server.listen(3001, () => {
   console.log("server is running successfully on port 3001 !");
 });

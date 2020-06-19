@@ -20,7 +20,7 @@ import {
   DateNavigator,
   TodayButton,
 } from "@devexpress/dx-react-scheduler-material-ui";
-
+import io from "socket.io-client";
 //import { appointments } from "../../../demo-data/appointments";
 
 export default class RDVCalender extends React.PureComponent {
@@ -83,11 +83,23 @@ export default class RDVCalender extends React.PureComponent {
 
         return { data, now };
       },
-      () => this.props.chooseRDV(this.state.now)
+      () =>{ 
+        this.props.chooseRDV(this.state.now);
+        this.socket.emit('RendezVous',{...this.state.now,idMedecin: this.props.idMedecin});
+      }
     );
     //
   }
-
+   
+  componentDidMount(){
+    this.socket = io("http://127.0.0.1:3001");
+    this.socket.on('rendezVous1',data =>{
+      if(data.idMedecin === this.props.idMedecin){
+        this.setState({data: [...this.state.data,{...data,startDate: data.date,endDate: moment(data.date).add(30,'m')}]});
+      }
+    });
+    
+  }
   render() {
     const { currentDate, data, currentViewName } = this.state;
 

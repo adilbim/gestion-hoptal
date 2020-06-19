@@ -32,6 +32,10 @@ io.on("connection", socket => {
     console.log(data);
     socket.broadcast.emit('patient!Present',data);
   });
+  socket.on('RendezVous', data => {
+    console.log(data);
+    socket.broadcast.emit('rendezVous1',data);
+  })
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });

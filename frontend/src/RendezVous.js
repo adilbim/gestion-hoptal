@@ -7,6 +7,7 @@ import RDVCalender from "./RDVCalender";
 import moment from "moment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import io from "socket.io-client";
 const styles = {
   root: {
     width: "100%",
@@ -62,12 +63,12 @@ class RendezVous extends React.Component {
     let data = await axios(`api/rendezVous/medecin/${id}`);
 
     data.data.forEach((elm) => {
-      elm.startDate =
-        moment(elm.startDate).format("ddd MMM DD YYYY hh:mm:00") +
-        " GMT+0100 (GMT+01:00)";
+      elm.endDate = moment(elm.startDate).add(30,'m');
     });
     this.setState({ medecinChosen: true, RendezVousMedecin: data.data });
     console.log(this.state.RendezVousMedecin);
+
+    //.format("ddd MMM DD YYYY hh:mm:00") +" GMT+0100 (GMT+01:00)";
   }
 
   getDate = (data) => {
@@ -75,6 +76,7 @@ class RendezVous extends React.Component {
       this.newRendezVous.date = data.date;
       this.newRendezVous.service = data.title;
       axios.post("api/RendezVous", this.newRendezVous);
+      
     } else if (data.action === "changed") {
       axios.put("api/rendezVous", { ...data });
       console.log("from axios put request");
@@ -84,12 +86,14 @@ class RendezVous extends React.Component {
     }
   };
   async componentDidMount() {
+    
     const dataPatient = await axios("/api/allPatients");
     const dataMedecin = await axios("/api/allMedecin");
     this.setState({
       dataPatient: dataPatient.data,
       dataMedecin: dataMedecin.data,
     });
+    
     //console.log(dataPatient.data);
   }
   handleChange(e) {
@@ -189,6 +193,7 @@ class RendezVous extends React.Component {
           <RDVCalender
             chooseRDV={this.getDate}
             rendezVous={this.state.RendezVousMedecin}
+            idMedecin={this.newRendezVous.idMedecin}
           />
         </div>
       );

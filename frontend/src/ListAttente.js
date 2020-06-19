@@ -144,7 +144,9 @@ class App extends Component {
       this.setState({listMedecin: listMedecin.data});
       this.socket.on('patientPresent', data=> {
           if(this.state.medecin.id === data.idMedecin)
-            this.setState({selected:[...this.state.selected,data]});
+            this.setState({selected:[...this.state.selected,data],
+            items:this.state.items.filter(elm=> elm.id !== data.id)
+            });
       });
       this.socket.on('patient!Present', data=> {
         if(this.state.medecin.id === data.idMedecin)

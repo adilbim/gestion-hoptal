@@ -85,7 +85,10 @@ export default class RDVCalender extends React.PureComponent {
       },
       () =>{ 
         this.props.chooseRDV(this.state.now);
-        this.socket.emit('RendezVous',{...this.state.now,idMedecin: this.props.idMedecin});
+        if(this.state.now.action === 'added')
+          this.socket.emit('RendezVous',{...this.state.now,idMedecin: this.props.idMedecin});
+        else if(this.state.now.action === 'deleted')
+          this.socket.emit('RendezVousDelete',this.state.now);
       }
     );
     //
@@ -98,6 +101,11 @@ export default class RDVCalender extends React.PureComponent {
         this.setState({data: [...this.state.data,{...data,startDate: data.date,endDate: moment(data.date).add(30,'m')}]});
       }
     });
+    this.socket.on('rendezVous2', data => {
+      //if(data.idMedecin === this.props.idMedecin){
+        this.setState({data: this.state.data.filter(elm=> elm.id !== data.id)});
+      //}
+    })
     
   }
   render() {

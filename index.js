@@ -35,6 +35,10 @@ io.on("connection", socket => {
   socket.on('RendezVous', data => {
     console.log(data);
     socket.broadcast.emit('rendezVous1',data);
+  });
+  socket.on('RendezVousDelete', data => {
+    console.log(data);
+    socket.broadcast.emit('rendezVous2',data);
   })
   socket.on("disconnect", () => {
     console.log("Client disconnected");

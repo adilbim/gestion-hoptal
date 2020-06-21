@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var bodyParser = require("body-parser");
-
+var middleWare = require('./verifyToken');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -23,7 +23,7 @@ con.connect(function (err) {
   console.log("Database is Connected!");
 });
 
-router.get("/allPatients", (req, res) => {
+router.get("/allPatients", middleWare, (req, res) => {
   var sql = "select * from patient";
   con.query(sql, (err, result) => {
     if (err) throw err;

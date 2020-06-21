@@ -9,11 +9,13 @@ var rendezVous = require("./routes/rendezVous");
 var medecin = require("./routes/medecin");
 var planning = require('./routes/planning');
 var listAttente = require('./routes/listeAttente');
+var auth = require('./routes/auth');
 app.use("/api", patient);
 app.use("/api", rendezVous);
 app.use("/api", medecin);
 app.use('/api', planning);
 app.use("/api", listAttente);
+app.use('/api', auth);
 //////////////////
 
 const server = http.createServer(app);

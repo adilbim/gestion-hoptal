@@ -23,7 +23,7 @@ con.connect(function (err) {
   console.log("Database is Connected!");
 });
 
-router.get("/allPatients", middleWare, (req, res) => {
+router.get("/allPatients", (req, res) => {
   var sql = "select * from patient";
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -127,5 +127,20 @@ router.get("/medecin/:idMedecin/allPatients", (req, res) => {
 //     } else res.send(data);
 //   });
 // });
+
+router.get("/patient/nbrConsultation/:id", (req, res) => {
+  var sql = `select count(*) from rendezVous where idPatient = ${req.params.id} and presence = 1;`;
+  con.query(sql, function (err, result) {
+    if (err) {
+      res.send(err);
+      console.log(err);
+    } else {
+      Count = JSON.parse(JSON.stringify(result))[0];
+      Count["count"] = Count["count(*)"];
+      console.log(Count);
+      return res.json({ status: 200, error: null, res_Count: Count });
+    }
+  });
+});
 
 module.exports = router;

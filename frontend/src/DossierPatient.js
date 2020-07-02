@@ -8,6 +8,8 @@ import ListItemPatient from "./ListItemPatient1";
 import * as Datetime from "react-datetime";
 import moment from "moment";
 import Demo from "./popup.js";
+import { NavLink } from "react-router-dom";
+import ordPut from "./popUpBilan/ordPut";
 
 const styles = {
   input: {
@@ -138,23 +140,6 @@ class DossierPatient extends Component {
   }
 
   handlePatient(e) {
-    console.log("hello");
-    console.log(e.target.value);
-    // const obj = {
-
-    //   // nom: "sabir",
-    //   // prenom: "hamza1",
-    //   // dateDeNaiss: "2002-05-07 02:14:45",
-    //   // email: "sabii,@jdj.com",
-    //   // adresse: "0,4",
-    //   // tele: "0505m0505",
-    //   // sexe: "male",
-    //   // nationalite: "marmoc",
-    //   // cin: "ddd55,555",
-
-    //   nom: e.target.vlaue,
-    // };
-
     this.setState({
       patientObj: { ...this.state.patientObj, [e.target.name]: e.target.value },
     });
@@ -181,10 +166,15 @@ class DossierPatient extends Component {
   async postPatient(e) {
     e.preventDefault();
     const obj = this.state.patientObj;
-    console.log(obj);
-
+    let idPatient;
     var res = await axios.post("/api/patient", obj);
     console.log(res);
+    const data = {
+      id: `${res.data.id}`,
+    };
+
+    await axios.post("/api/patientDossier", data);
+
     this.setState({ dataPatient: [...this.state.dataPatient, obj] });
   }
 
@@ -218,30 +208,29 @@ class DossierPatient extends Component {
   }
 
   render() {
-    console.log("bigONe");
     const { classes } = this.props;
     const { patient, patientObj } = this.state;
 
     let allPatients;
     let render;
-    // // const patients = this.state.dataPatient.map((p, i) => (
-    // //   <ListItemPatient key={p.id} data={p} />
-    // ));
 
     if (this.state.dataPatient.length > 0) {
       allPatients = this.state.dataPatient.map((elm, indx) => (
-        <ListItemPatient
-          key={elm.id}
-          id={elm.id}
-          data={elm}
-          patientAModifier={this.state.patientObj}
-          putPatient={this.putPatient}
-          handle={this.handlePatient}
-          postPatient={this.postPatient}
-          putaPatient={this.putaPatient}
-          handlePatientdate={this.handlePatientdate}
-          onClick={(e) => console.log("ok")}
-        />
+        <NavLink exact to={`/profilePatient/${elm.id}`}>
+          {" "}
+          <ListItemPatient
+            key={elm.id}
+            id={elm.id}
+            data={elm}
+            patientAModifier={this.state.patientObj}
+            putPatient={this.putPatient}
+            handle={this.handlePatient}
+            postPatient={this.postPatient}
+            putaPatient={this.putaPatient}
+            handlePatientdate={this.handlePatientdate}
+            onClick={(e) => console.log("ok")}
+          />
+        </NavLink>
       ));
       render = (
         <div id="middle">
@@ -255,6 +244,7 @@ class DossierPatient extends Component {
               onChange={this.handleChange}
             />
           </div>
+          <ordPut />
           <Popup
             trigger={
               <button

@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Roboto&family=Ubuntu:wght@500&display=swap");
+
+._profile {
+  display: flex;
+  flex-basis: 35%;
+  background: white;
+  border: 1px solid #f9f9f9;
+  border-radius: 3px;
+  margin: 5px 45px;
+  -webkit-box-shadow: -2px 4px 33px -9px rgba(223, 223, 223, 1);
+  -moz-box-shadow: -2px 4px 33px -9px rgba(223, 223, 223, 1);
+  box-shadow: -2px 4px 33px -9px rgba(223, 223, 223, 1);
+}
+._profile > div {
+  /*border : 1px solid #f8f8f8;*/
+}
+
+._picture {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  border-right: 1.4px solid #ededed;
+}
+._pic {
+  height: 55%;
+  width: 70%;
+}
+._pic1 {
+  float: center;
+  height: 100%;
+  width: 100%;
+}
+._name {
+  font: 16px ubunto, sans-serif;
+  font-weight: 550;
+  padding-top: 5px;
+}
+._info {
+  flex: 4;
+  display: flex;
+  height: 95%;
+  flex-direction: column;
+  align-content: center;
+
+  /*padding: 20px ;*/
+}
+._info > div {
+  width: 100%;
+}
+._personal {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+._personal > div {
+  padding: 5px 30px;
+}
+._2 {
+  display: flex;
+  justify-content: space-between;
+}
+._2 > div {
+  /*border : 1px solid red;*/
+  flex-basis: 50%;
+}
+._1 {
+  font: 16.5px roboto, sans-serif;
+  color: #adadad;
+}
+._style1 {
+  font: 16px roboto, sans-serif;
+  font-weight: 550;
+  color: #636363;
+}
+._style2 {
+  font: 14px "Noto Sans JP", sans-serif;
+  color: black;
+}
+._contact {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  border-top: 1.4px solid #ededed;
+}
+._contact > div {
+  flex: 1;
+  padding: 5px 30px;
+}
+/*****************************RDV*******************************/
+._rdv {
+  flex-basis: 25%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  /* border : 1px solid red;*/
+  margin: 10px 40px;
+}
+/*._rdv > div{
+      border : 1px solid green;
+    }*/
+._consultation {
+  flex-basis: 23%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 9px;
+  align-items: center;
+  background: #5f5bc8;
+  border: 1px solid #7e7bd3;
+  -webkit-box-shadow: 1px 2px 9px 0.5px rgb(197, 195, 235);
+  -moz-box-shadow: 1px 2px 9px 0.5px rgb(197, 195, 235);
+  box-shadow: 1px 2px 9px 0.5px rgb(197, 195, 235);
+  margin: 10px;
+  /*align-content : center;*/
+}
+
+._consultation > div {
+  /*border : 1px solid red;*/
+  color: #eee5e5;
+  font-family: roboto, sans-serif;
+  margin-top: 7px;
+}
+
+._icon {
+  height: 30%;
+}
+
+._number {
+  flex-basis: 5%;
+}
+._desc {
+  flex-basis: 60%;
+  padding-left: 10px;
+  font-size: 12px;
+}
+/********************LIST**********************************/
+._list {
+  flex-basis: 73%;
+  /*height : 60%;*/
+  display: flex;
+  height: 190px;
+  flex-direction: column;
+  overflow: auto;
+  border: 1.3px solid white;
+  background: white;
+  -webkit-box-shadow: 1px 2px 9px 0.5px #f8f8f8;
+  -moz-box-shadow: 1px 2px 9px 0.5px #f8f8f8;
+  box-shadow: 1px 2px 9px 0.5px #f8f8f8;
+}
+
+._list > div {
+  padding: 15px 10px;
+  margin-right: 5px;
+  font-family: roboto, sans-serif;
+}
+._td {
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  border-top: 1px solid #dfdfdf;
+  color: #454545;
+}
+._td:hover {
+  background: #eeeef9;
+  border-top: 1px solid #ececec;
+  -webkit-box-shadow: 0px -2px 5px -2px rgba(255, 255, 255, 1);
+  -moz-box-shadow: 0px -2px 5px -2px rgba(255, 255, 255, 1);
+  box-shadow: 0px -2px 5px -2px rgba(255, 255, 255, 1);
+}
+._td:active {
+  background: #a5a3eb;
+}
+/*._td > div{
+      border : 1px solid red;
+    }*/
+._ap {
+  display: flex;
+  border-top: 1.6px solid #a5a3eb;
+}
+._appointment {
+  flex: 2;
+
+  color: #454545;
+  font-weight: bold;
+}
+._appointment > i {
+  color: #c5c3eb;
+  padding-right: 3px;
+}
+._more {
+  flex: 1;
+  text-align: right;
+  font-size: 10px;
+  color: #919191;
+  /*margin-left : 100px;*/
+}
+._time {
+  flex-basis: 25%;
+  font-size: 14px;
+}
+._description {
+  flex-basis: 65%;
+  font-size: 16px;
+}
+._description > i {
+  padding-left: 70px;
+  font-size: 14px;
+}
+._analyse {
+  flex-basis: 27%;
+
+  background: red;
+  /* background-size: 300px 100px;*/
+}

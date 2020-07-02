@@ -15,7 +15,7 @@ var resultat;
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hackeddetected",
+  password: "hamza",
   database: "hopital",
 });
 

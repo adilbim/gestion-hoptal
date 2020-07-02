@@ -15,7 +15,7 @@ var resultat;
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "hackeddetected",
+  password: "hamza",
   database: "hopital",
 });
 
@@ -35,7 +35,9 @@ router.get("/RendezVous", (req, res) => {
 });
 
 router.get("/rendezVous/patient/:idPatient", (req, res) => {
-  var sql = `select * from rendezVous where idPatient = ${req.params.idPatient};`;
+  var sql = `select * from rendezVous where idPatient = ${req.params.idPatient}
+  order by date
+  ;`;
   con.query(sql, (err, result) => {
     if (err) throw err;
     else {
@@ -104,6 +106,16 @@ router.put("/rendezVous", (req, res) => {
 
 router.delete("/rendezVous/:id", (req, res) => {
   var sql = `delete from rendezVous where id = '${req.params.id}';`;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    else {
+      res.send(result);
+    }
+  });
+});
+
+router.get("/dataRdv/:idRdv", (req, res) => {
+  var sql = `select * from rendezVous where id= '${req.params.idRdv}';`;
   con.query(sql, (err, result) => {
     if (err) throw err;
     else {

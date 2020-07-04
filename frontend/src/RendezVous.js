@@ -7,7 +7,7 @@ import RDVCalender from "./RDVCalender";
 import moment from "moment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import io from "socket.io-client";
+//import io from "socket.io-client";
 const styles = {
   root: {
     width: "100%",

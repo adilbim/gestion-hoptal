@@ -117,7 +117,7 @@ export default class RDVCalender extends React.PureComponent {
   
 
   render() {
-    const { currentDate, data, currentViewName } = this.state;
+    const {data, currentViewName } = this.state;
 
     return (
         <div id="middle">

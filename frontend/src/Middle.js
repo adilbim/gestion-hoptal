@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, Card, Row, Col } from 'antd';
+import { Statistic, Card} from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined, ClockCircleOutlined  } from '@ant-design/icons';
 import { withStyles } from "@material-ui/styles";
 import moment from 'moment';

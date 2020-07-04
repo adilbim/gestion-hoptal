@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import moment from 'moment';
@@ -10,11 +10,11 @@ import io from "socket.io-client";
 import jwt from 'jsonwebtoken';
 
 // fake data generator
-const getItems = (count, offset = 0) =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k + offset}`,
-        content: `item ${k + offset}`
-    }));
+// const getItems = (count, offset = 0) =>
+//     Array.from({ length: count }, (v, k) => k).map(k => ({
+//         id: `item-${k + offset}`,
+//         content: `item ${k + offset}`
+//     }));
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -154,12 +154,14 @@ class App extends Component {
             items:[...this.state.items,data]
            });
       });
+      if(localStorage.getItem('user')){ 
       let user = jwt.verify(localStorage.getItem('user'), 'shhhhh');
       this.setState({user});
-      if(this.state.user.role === 'medecin'){
+       if(this.state.user.role === 'medecin'){
         let rdvE = await axios(`/api/listAttente/E/${this.state.user.id}`);
         let rdvR = await axios(`/api/listAttente/R/${this.state.user.id}`);  
-        this.setState({items: rdvE.data, selected: rdvR.data,search: ''});
+        this.setState({items: rdvE.data, selected: rdvR.data, medecin: {id: this.state.user.id},search: ''});
+       }
       }
     }
 

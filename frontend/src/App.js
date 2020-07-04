@@ -14,10 +14,10 @@ import Bilan from "./bilan";
 
 
 class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {isLoggedIn: false, user:{}};
-  }
+  // constructor(props){
+  //   super(props);
+  //   this.state = {isLoggedIn: false, user:{}};
+  // }
   //   useEffect(()=>{
   //     checkUser()
   //     console.log(localStorage.getItem('user'));
@@ -62,21 +62,21 @@ render(){
         <Route
           exact
           path="/planning/:idUser"
-          render={(props) => <Planning {...props} />}
+          render={(props) => localStorage.getItem('isLoggedIn') ? <Planning {...props} /> : <Redirect to="/login" />}
         />
         <Route
           exact
           path="/profilePatient/:idPatient"
-          render={(props) => <ProfilePatient {...props} />}
+          render={(props) => localStorage.getItem('isLoggedIn') ? <ProfilePatient {...props} /> : <Redirect to="/login" />}
         />
-        <Route exact path="/newRendezVous" render={() => <RendezVous />} />
-        <Route exact path="/dossierPatient" render={() => <DossierPatient />} />
+        <Route exact path="/newRendezVous" render={() => localStorage.getItem('isLoggedIn') ? <RendezVous />: <Redirect to="/login"/>} />
+        <Route exact path="/dossierPatient" render={() => localStorage.getItem('isLoggedIn') ? <DossierPatient /> : <Redirect to="/login"/>} />
         <Route
           exact
           path="/bilan/:id"
           render={(props) => <Bilan {...props} />}
         />
-        <Route exact path="/statistiques" render={() => <Statistiques />} />
+        <Route exact path="/statistiques" render={() => localStorage.getItem('isLoggedIn') ? <Statistiques /> : <Redirect to="/login" />} />
       </Switch>
       <ListAttente />
      </div> 

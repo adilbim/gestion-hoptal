@@ -6,7 +6,7 @@ import moment from 'moment';
 import StackedBarChart from './StackedBarChart';
 import LineChart  from './LineChart';
 import TinyLineChart from './TinyLineChart';
-
+import jwt from 'jsonwebtoken';
 
 const styles = {
   container :{
@@ -43,31 +43,39 @@ class Middle extends React.Component{
 
    constructor(props){
      super(props);
-     this.state = {horloge:'hh:mm:ss'}
+     this.state = {horloge:'hh:mm:ss', user: {nom:'hassan'}}
    }
 
    componentDidMount(){
     this.interval = setInterval(()=>{
        this.setState({horloge: moment().format('hh:mm:ss')})
-     },1000)
+     },1000);
+  
+     let user = jwt.verify(localStorage.getItem('user'), 'shhhhh');
+     this.setState({user});
+     //console.log(this)
    }
    componentWillMount(){
     clearInterval(this.interval);
    }
-
+   logout = () => {
+    localStorage.clear();
+    this.props.history.push('/login');
+   }
     render(){
         const {classes} = this.props ;
+        const {user} = this.state;
         return(
             
             <div id="middle">
       
             <div className="nav">
-                <div className="logout"><i className="fa fa-sign-out" aria-hidden="true"></i> Log out</div>
+                <div className="logout" onClick={this.logout}><i className="fa fa-sign-out" aria-hidden="true"></i> Log out</div>
             <div className="info">
       
               <div className="userName">
-                <span className={classes.name}>Dr.azouazi</span>
-                <span className={classes.userName}>@azouazi</span>
+                <span className={classes.name}>{`${user.role === 'medecin' ? 'Dr.' : ''}${user.nom}`}</span>
+                <span className={classes.userName}>{`@${user.username}`}</span>
               </div>
               <div className="iuser"></div>
       

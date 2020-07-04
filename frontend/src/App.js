@@ -7,17 +7,57 @@ import RendezVous from "./RendezVous";
 import DossierPatient from "./DossierPatient";
 import RendezVousAcceil from "./rendezVousAcceill";
 import Statistiques from "./Statistiques";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Planning from "./Planning";
 import ProfilePatient from "./ProfilePatient";
 import Bilan from "./bilan";
 
-function App() {
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {isLoggedIn: false, user:{}};
+  }
+  //   useEffect(()=>{
+  //     checkUser()
+  //     console.log(localStorage.getItem('user'));
+      
+  //   },[localStorage.getItem('user')]);
+  //   console.log(user,isLoggedIn);
+  // //   useEffect(()=>{
+  // //     //setUser('please');  
+  // //    //setIsLoggedIn(true);
+  // //     //debugger;
+  // //     console.log('senconde usEffect',isLoggedIn, user);
+  // //  },[user])
+  // const checkUser = () => {
+  //   return jwt.verify(localStorage.getItem('user'), 'shhhhh', function(err, decoded) {
+        
+  //     if(err) { console.log(err);}
+  //     return setIsLoggedIn(true);
+  //     //debugger;
+  //   });
+  // }
+  // , (err, decoded) => {
+  //   this.setState({isLoggedIn: true, user: decoded});    
+  //   console.log(this.state);
+  // });
+// async componentDidMount(){
+//   try{ 
+//   let Vtoken = jwt.verify(localStorage.getItem('user'), 'shhhhh');
+//   }catch(err){
+//     console.log(err);
+//   }
+//   this.setState({isLoggedIn: true});
+//   console.log(this.state);
+// }  
+render(){   
   return (
+    
     <div className="container">
       <Menu />
       <Switch>
-        <Route exact path="/" render={() => <Middle />} />
+        <Route exact path="/" render={(props) => localStorage.getItem('isLoggedIn') ? <Middle {...props} /> : <Redirect to="/login" />} />
         <Route exact path="/rendezVous" render={() => <RendezVousAcceil />} />
         <Route
           exact
@@ -39,8 +79,10 @@ function App() {
         <Route exact path="/statistiques" render={() => <Statistiques />} />
       </Switch>
       <ListAttente />
-    </div>
+     </div> 
+
   );
+}
 }
 
 export default App;

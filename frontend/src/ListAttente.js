@@ -7,7 +7,7 @@ import axios from 'axios';
 import moment from 'moment';
 import "moment/locale/fr";
 import io from "socket.io-client";
-
+import jwt from 'jsonwebtoken';
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -67,7 +67,7 @@ class App extends Component {
     state = {
         items: [],
         selected: [],
-        listMedecin: [], search: '', searchList: [], medecin:''
+        listMedecin: [], search: '', searchList: [], medecin:{nom:"nom"}, user:{}
     };
 
     /**
@@ -154,7 +154,13 @@ class App extends Component {
             items:[...this.state.items,data]
            });
       });
-
+      let user = jwt.verify(localStorage.getItem('user'), 'shhhhh');
+      this.setState({user});
+      if(this.state.user.role === 'medecin'){
+        let rdvE = await axios(`/api/listAttente/E/${this.state.user.id}`);
+        let rdvR = await axios(`/api/listAttente/R/${this.state.user.id}`);  
+        this.setState({items: rdvE.data, selected: rdvR.data,search: ''});
+      }
     }
 
     handleChange = e =>{
@@ -180,6 +186,7 @@ class App extends Component {
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
+        let {user} = this.state;
         let listMedecin = [];
         if(this.state.listMedecin.length > 0 && this.state.search.length > 0){
         listMedecin = this.state.searchList.map(elm => <div onClick={()=> this.chooseMedecin(elm)} className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
@@ -192,14 +199,22 @@ class App extends Component {
         return (
           <div id="right">
             <div class="lsearch">
+            {user.role === 'secretaire' ? 
+               <>
                <input class="searchList"type="text" onChange={this.handleChange} placeholder="Chercher Medecin" />
                <div className={`dropDown ${this.state.search.length > 0 && 'showDropDown'}`}>
                 {listMedecin}
                </div>
+               </>
+            : false}
                <div class="listInfo">
-                   <span>{today.format('MMM, DD dddd')}</span> <span>|</span> <span>{'Dr.'+this.state.medecin.nom}</span>
+                   <span>{today.format('MMM, DD dddd')}</span> <span>|</span> 
+                   <span>
+                    {this.state.medecin.nom && user.role === 'secretaire' ? `Dr.${this.state.medecin.nom}` : `Dr.${user.nom}`}
+                   </span>
                </div>
              </div>
+            
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (

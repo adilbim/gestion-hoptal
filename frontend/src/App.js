@@ -69,7 +69,7 @@ render(){
           path="/profilePatient/:idPatient"
           render={(props) => localStorage.getItem('isLoggedIn') ? <ProfilePatient {...props} /> : <Redirect to="/login" />}
         />
-        <Route exact path="/newRendezVous" render={() => localStorage.getItem('isLoggedIn') ? <RendezVous />: <Redirect to="/login"/>} />
+        <Route exact path="/newRendezVous" render={(props) => localStorage.getItem('isLoggedIn') ? <RendezVous {...props} />: <Redirect to="/login"/>} />
         <Route exact path="/dossierPatient" render={() => localStorage.getItem('isLoggedIn') ? <DossierPatient /> : <Redirect to="/login"/>} />
         <Route
           exact

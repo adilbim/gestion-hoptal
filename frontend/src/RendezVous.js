@@ -84,6 +84,11 @@ class RendezVous extends React.Component {
       //console.log('from the delete request');
       axios.delete(`api/rendezVous/${data.id}`);
     }
+    this.setState({
+      patientChosen: false,
+      medecinChosen: false,
+      patient: "",
+    });
   };
   async componentDidMount() {
     
@@ -115,7 +120,7 @@ class RendezVous extends React.Component {
   };
 
   addNewPatient = () => {
-    alert("we will add the feature soon, stay tuned!");
+    this.props.history.push('/dossierPatient');
   };
   render() {
     const { classes } = this.props;

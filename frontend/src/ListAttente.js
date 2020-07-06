@@ -8,6 +8,7 @@ import moment from 'moment';
 import "moment/locale/fr";
 import io from "socket.io-client";
 import jwt from 'jsonwebtoken';
+import {Link} from 'react-router-dom';
 
 // fake data generator
 // const getItems = (count, offset = 0) =>
@@ -200,16 +201,16 @@ class App extends Component {
         today.local('fr');
         return (
           <div id="right">
-            <div class="lsearch">
+            <div className="lsearch">
             {user.role === 'secretaire' ? 
                <>
-               <input class="searchList"type="text" onChange={this.handleChange} placeholder="Chercher Medecin" />
+               <input className="searchList"type="text" onChange={this.handleChange} placeholder="Chercher Medecin" />
                <div className={`dropDown ${this.state.search.length > 0 && 'showDropDown'}`}>
                 {listMedecin}
                </div>
                </>
             : false}
-               <div class="listInfo">
+               <div className="listInfo">
                    <span>{today.format('MMM, DD dddd')}</span> <span>|</span> 
                    <span>
                     {this.state.medecin.nom && user.role === 'secretaire' ? `Dr.${this.state.medecin.nom}` : `Dr.${user.nom}`}
@@ -239,11 +240,11 @@ class App extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {/* {item.content} */}
-                                            <div class="nameDate">
-                                            <div class="name"><i class="fa fa-user-circle" aria-hidden="true"></i>{' '+item.nom+' '+ item.prenom}</div>
-                                            <div class="cin">{item.cin}</div>
+                                            <div className="nameDate">
+                                            <div className="name"><i className="fa fa-user-circle" aria-hidden="true"></i>{' '+item.nom+' '+ item.prenom}</div>
+                                            <div className="cin">{item.cin}</div>
                                           </div>
-                                            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
+                                            <div className="time"><i className="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
                                          </div>
                                     )}
                                 </Draggable>
@@ -272,11 +273,11 @@ class App extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {/* {item.content} */}
-                                            <div class="nameDate">
-                                            <div class="name"><i class="fa fa-user-circle" aria-hidden="true"></i>{item.nom+' '+ item.prenom}</div>
-                                            <div class="cin">{item.cin}</div>
+                                            <div className="nameDate">
+                                            <div className="name"><i className="fa fa-user-circle" aria-hidden="true"></i>{item.nom+' '+ item.prenom}</div>
+                                            <div className="cin">{item.cin}</div>
                                           </div>
-                                            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
+                                            <div className="time"><i className="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
                                         </div>
                                     )}
                                 </Draggable>
@@ -286,9 +287,9 @@ class App extends Component {
                     )}
                 </Droppable>
             </DragDropContext>
-            <div class="link">
+            <div className="link">
               
-               <a href="#">les listes d'attendes</a>
+               <Link to="/tvList">les listes d'attendes</Link>
              </div>
           </div>
         );

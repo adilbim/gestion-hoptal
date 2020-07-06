@@ -30,17 +30,17 @@ class Menu extends React.Component{
     const {user} = this.state;
         return(
         <div id="menu">
-            <div class="user">
+            <div className="user">
               
             </div>
-            <div class="icons">
-              <NavLink exact activeClassName={classes.active} to="/" className="icon"><div ><i class="fa fa-th-large i" aria-hidden="true"></i></div></NavLink>
-              <NavLink exact activeClassName={classes.active} to={user.role ==='medecin'? `/planning/${user.id}` :'/rendezVous'} className="icon"><div ><i class="fa fa-calendar i" aria-hidden="true"></i></div></NavLink>
-              <NavLink exact activeClassName={classes.active} to="/dossierPatient" className="icon"><div ><i class="fa fa-folder-open i" aria-hidden="true"></i></div></NavLink>
-              <NavLink exact activeClassName={classes.active} to="/statistiques" className="icon"><div ><i class="fa fa-pie-chart i" aria-hidden="true"></i></div></NavLink>
+            <div className="icons">
+              <NavLink exact activeClassName={classes.active} to="/" className="icon"><div ><i className="fa fa-th-large i" aria-hidden="true"></i></div></NavLink>
+              <NavLink exact activeClassName={classes.active} to={user.role ==='medecin'? `/planning/${user.id}` :'/rendezVous'} className="icon"><div ><i className="fa fa-calendar i" aria-hidden="true"></i></div></NavLink>
+              <NavLink exact activeClassName={classes.active} to="/dossierPatient" className="icon"><div ><i className="fa fa-folder-open i" aria-hidden="true"></i></div></NavLink>
+              <NavLink exact activeClassName={classes.active} to="/statistiques" className="icon"><div ><i className="fa fa-pie-chart i" aria-hidden="true"></i></div></NavLink>
             </div> 
-            <div class="others">
-              <i class="fa fa-toggle-off dark" aria-hidden="true"></i>
+            <div className="others">
+              <i className="fa fa-toggle-off dark" aria-hidden="true"></i>
             </div>
         </div>   
         )

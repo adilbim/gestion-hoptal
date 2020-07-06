@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,400&display=swap");
+body {
+  margin: 0; }
+
+.W_container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #dee7e4;
+  font-family: 'Roboto', sans-serif; }
+
+#W_active {
+  background: white;
+  animation: active 10s ease-in-out;
+  animation-iteration-count: 3; }
+
+.W_waitingListItem {
+  height: 30%;
+  background: white;
+  margin: 12.5px 25px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20px;
+  box-shadow: 0px 3px rgba(0, 0, 0, 0.2); }
+
+.W_patientInfo {
+    margin: 5%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+   }
+  .W_patientInfo .W_name {
+    font-size: 50px; }
+  .W_patientInfo .W_id {
+    font-size: 30px;
+    color: #686e6c; }
+
+.W_time {
+  margin: 5%; }
+  .W_time div {
+    font-size: 50px; }
+
+@keyframes active {
+  0% {
+    background: white; }
+  20% {
+    background: #51e0b1;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #adfce2, #51e0b1);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #adfce2, #51e0b1);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+  40% {
+    background: white; }
+  60% {
+    background: #51e0b1;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #adfce2, #51e0b1);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #adfce2, #51e0b1);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.2); }
+  80% {
+    background: white; }
+  100% {
+    background: #51e0b1;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #adfce2, #51e0b1);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #adfce2, #51e0b1);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.2); } }
+
+/*# sourceMappingURL=index.css.map */

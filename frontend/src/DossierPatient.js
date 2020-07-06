@@ -236,7 +236,7 @@ class DossierPatient extends Component {
         <div id="middle">
           <div>
             <input
-              className={classes.input}
+              className="searchList"
               type="text"
               placeholder="Chercher Patient"
               name="patient"

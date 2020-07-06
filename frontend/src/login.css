@@ -1,114 +1,111 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Roboto&family=Ubuntu:wght@500&display=swap');
 
+
 .A_bigContainer{
-    background-image : url("doctor-woman.png");
-      background-attachment: fixed;
-      background-size: 70% 95%;
-      background-repeat: no-repeat;
-      background-position : 90% 50%;
-      font-family : 'roboto' , sans-serif;
-      height: 100vh;
-    }
-    #A_container{
-      display : flex;
-      flex-direction : column;
-      width : 37vw;
-      height : 90vh;
-      margin : 5px 5px;
-      justify-content : center;
-      align-content : space-between;
-      /*border : 1px solid red;*/
-    }
-    #A_container > div {
-      /*border : 1px solid red;*/
-      margin-left : 40px;
-      margin-right : 40px;
-     
-    }
-    .A_hi{
-      margin-bottom : 85px;
+  background-image : url("doctor-woman.png");
+  background-attachment: fixed;
+  background-size: 70% 95%;
+  background-repeat: no-repeat;
+  background-position : 90% 50%;
+  font-family : 'roboto' , sans-serif;
+}
+#A_container{
+  display : flex;
+  flex-direction : column;
+  width : 37vw;
+  height : 90vh;
+  margin : 5px 5px;
+  justify-content : center;
+  align-content : space-between;
+  /*border : 1px solid red;*/
+}
+#A_container > div {
+  /*border : 1px solid red;*/
+  margin-left : 40px;
+  margin-right : 40px;
+}
+.A_hi{
+  margin-bottom : 85px;
+  color : #6a66df;
+  font-size : 45px;
+  font-weight : bold;
+}
     
-      color : #6a66df;
-      font-size : 45px;
-      font-weight : bold;
+.A_user >input {
+  width: 100%;
+  height : 60%;
+  padding: 12px 30px;
+  margin-top : 8px;
+  display: inline-block;
+  border : none;
+  border-bottom: 1px solid #d6d6d6;
+  box-sizing: border-box;
+}
+.A_user > input[type=password]{
+  /*background-image: url('password.png');*/
+  background-position: 12px 10px; 
+  color : #bdc7d8;
+  background-size : 15px 15px;
+ /* background-position: 10px 10px;*/
+  background-repeat: no-repeat;
+}
+.A_user > input[type=text]:focus + .A_separator, .A_user > input[type=password]:focus + .A_separator{
+       transform: scaleX(1) translateY(-2px);   
+        opacity: 1;
+}
+.A_separator {
+  height:2.2px;
+  width: 100%;
+  background: #6a66df;
+  display: block;
+  transform: scaleX(0) translateY(-2px);
+  transform-origin: 50%;
+  opacity: 0;
+  transition: all .15s linear;
+}
+.A_user :focus , .A_submit :focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+.A_user > ::placeholder {
+  color: #bdc7d8;
+}
+.A_user{
+  color : #676767;
+  font : 16.5px 'inherit';
+  padding : 0px 0px 15px 0px;
     
-    }
-        
-    input[type=text], input[type=password] {
-      width: 100%;
-      height : 60%;
-      padding: 12px 30px;
-      margin-top : 8px;
-      display: inline-block;
-      border : none;
-      border-bottom: 1px solid #d6d6d6;
-      box-sizing: border-box;
-    }
-    input[type=password]{
-     /* background-image: url('password.png');*/
-      background-position: 12px 10px; 
-      color : #bdc7d8;
-      background-size : 15px 15px;
-     /* background-position: 10px 10px;*/
-      background-repeat: no-repeat;
-    }
-    input[type=text]:focus + .separator, input[type=password]:focus + .separator{
-           transform: scaleX(1) translateY(-2px);   
-            opacity: 1;
-          }
-    .separator {
-      height:2.2px;
-      width: 100%;
-      background: #6a66df;
-      display: block;
-      transform: scaleX(0) translateY(-2px);
-      transform-origin: 50%;
-      opacity: 0;
-      transition: all .15s linear;
-    }
-    * :focus {
-      outline-color: transparent;
-      outline-style: none;
-    }
-    ::placeholder {
-      color: #bdc7d8;
-    }
-    .A_user{
-      color : #676767;
-      font : 16.5px 'inherit';
-      padding : 0px 0px 15px 0px;
-        
-    }
-    .A_two{
-      display : flex;
-      justify-content : space-between;
-      font-size : 15px;
-      color : #808080;
-      font-weight : 100px;
-    
-    }
-    .A_forgot{
-      text-align : right;
-      padding-bottom : 13px;
-      
-    }
-    .icon{
-      color : #808080;
-      font-weight : bold;
-    }
-    
-    input[type="submit"]{
-        color: white;
-        background: #6a66df;
-        padding: 12px 0px;
-        font-size: 1.2em;
-        width : 100%;
-        border : 1px solid #7875e2;
-        -webkit-box-shadow: 1px 1px 6px 1.5px rgba(194,193,242,1);
-        -moz-box-shadow: 1px 1px 6px 1.5px rgba(194,193,242,1);
-        box-shadow: 1px 1px 6px 1.5px rgba(194,193,242,1);}
-    
-    input[type ="submit"]:hover{
-      background : #7875e2;
-    border :1px solid #8784e5;
-    }
+}
+.A_two{
+  display : flex;
+  justify-content : space-between;
+  font-size : 15px;
+  color : #808080;
+  font-weight : 100px;
+
+}
+.A_forgot{
+  text-align : right;
+  padding-bottom : 13px;
+  
+}
+.icon{
+  color : #808080;
+  font-weight : bold;
+}
+
+.A_submit > input[type="submit"]{
+    color: white;
+    background: #6a66df;
+    padding: 12px 0px;
+    font-size: 1.2em;
+    width : 100%;
+    border : 1px solid #7875e2;
+    -webkit-box-shadow: 1px 1px 6px 1.5px rgba(194,193,242,1);
+    -moz-box-shadow: 1px 1px 6px 1.5px rgba(194,193,242,1);
+    box-shadow: 1px 1px 6px 1.5px rgba(194,193,242,1);}
+
+.A_submit > input[type ="submit"]:hover{
+  background : #7875e2;
+border :1px solid #8784e5;
+}

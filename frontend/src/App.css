@@ -13,10 +13,10 @@ body{
 }
 
 .container{
-  margin: 3px 3px 3px 3px;
+ /* margin: 3px 3px 3px 3px;*/
   display:flex;
   width: 99,03vw;  
-  height: 99vh;
+  height: 100vh;
   /* justify-content:space-between;
    */
 }
@@ -55,7 +55,7 @@ background: #f8f8f8;
  background: #ececec;
  margin: 10px 20px;
  padding: 10px 0;
-
+ align-items: center;
 }
 
 .icons{
@@ -70,7 +70,7 @@ background: #f8f8f8;
 .icon{
   width: 100%;
   text-align: center;
-  border-right: 8px solid transparent;
+  border-right: 5px solid transparent;
 }
 
 .userName{
@@ -162,7 +162,7 @@ background: #f8f8f8;
 .info{
   display: flex;
   justify-content: space-between;
-  width: 7em;
+  width: 8em;
   margin-right: 10px;
 }
 .type{
@@ -221,7 +221,7 @@ background: #f8f8f8;
 .rdvItem{
   background: #e1e0f8;
   border-radius :5px;
-  height:45px;
+  /*height:45px;*/
   padding:8px;
   display:flex;
   justify-content:space-between;
@@ -290,10 +290,10 @@ background: #f8f8f8;
   font-size: 11px;
   /*font-size: 16px;*/
   background-color: white;
-  /*background-image: url('searchIcon.png');*/
-  /*background-image: url('search-13-16.png');*/
-  background-position: 10px 10px; 
- /* background-position: 10px 10px;*/
+  /* background-image: url('searchIcon.png'); */
+  background-image: url('search-13-16.png');
+  /* background-position: 0;  */
+  background-position: 10px 10px;
   background-repeat: no-repeat;
   outline: none;
 }

@@ -10,8 +10,8 @@ import AddIcon from "@material-ui/icons/Add";
 //import io from "socket.io-client";
 const styles = {
   root: {
-    width: "100%",
-    height: "100%",
+    // width: "100%",
+    // height: "100%",
   },
   floatingButton: {
     position: "fixed",
@@ -142,7 +142,7 @@ class RendezVous extends React.Component {
             <input
               className="searchList"
               type="text"
-              placeholder="Chercher Medecin"
+              placeholder="Chercher Patient"
               name="patient"
               value={patient}
               onChange={this.handleChange}

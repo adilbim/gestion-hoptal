@@ -58,7 +58,7 @@ render(){
       <Menu />
       <Switch>
         <Route exact path="/" render={(props) => localStorage.getItem('isLoggedIn') ? <Middle {...props} /> : <Redirect to="/login" />} />
-        <Route exact path="/rendezVous" render={() => <RendezVousAcceil />} />
+        <Route exact path="/rendezVous" render={(props) => <RendezVousAcceil {...props} />} />
         <Route
           exact
           path="/planning/:idUser"

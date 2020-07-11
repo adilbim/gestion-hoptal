@@ -9,7 +9,6 @@ import * as Datetime from "react-datetime";
 import moment from "moment";
 import Demo from "./popup.js";
 import { NavLink } from "react-router-dom";
-import ordPut from "./popUpBilan/ordPut";
 
 const styles = {
   input: {
@@ -89,7 +88,11 @@ const styles = {
     width: "40%",
   },
 
-  popUpAjouter: {},
+  popUpAjouter: {
+    overflow: "scroll",
+    height: "80vh",
+    background: "#eee",
+  },
   divPatient: {
     height: "70vh",
     marginTop: "10%",
@@ -98,9 +101,6 @@ const styles = {
 };
 
 class DossierPatient extends Component {
-  static defaultProps = {
-    id() {},
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -143,11 +143,10 @@ class DossierPatient extends Component {
     this.setState({
       patientObj: { ...this.state.patientObj, [e.target.name]: e.target.value },
     });
-
-    console.log(this.state.patientObj);
   }
 
   handlePatientdate(date) {
+    var d = moment(date).format("yyyy-mm-dd hh:mm:ss");
     console.log(date);
     var data1 = date._d.toString().split(" ")[1];
     var data2 = date._d.toString().split(" ")[2];
@@ -216,21 +215,18 @@ class DossierPatient extends Component {
 
     if (this.state.dataPatient.length > 0) {
       allPatients = this.state.dataPatient.map((elm, indx) => (
-        <NavLink exact to={`/profilePatient/${elm.id}`}>
-          {" "}
-          <ListItemPatient
-            key={elm.id}
-            id={elm.id}
-            data={elm}
-            patientAModifier={this.state.patientObj}
-            putPatient={this.putPatient}
-            handle={this.handlePatient}
-            postPatient={this.postPatient}
-            putaPatient={this.putaPatient}
-            handlePatientdate={this.handlePatientdate}
-            onClick={(e) => console.log("ok")}
-          />
-        </NavLink>
+        <ListItemPatient
+          key={elm.id}
+          id={elm.id}
+          data={elm}
+          patientAModifier={this.state.patientObj}
+          putPatient={this.putPatient}
+          handle={this.handlePatient}
+          postPatient={this.postPatient}
+          putaPatient={this.putaPatient}
+          handlePatientdate={this.handlePatientdate}
+          onClick={(e) => console.log("ok")}
+        />
       ));
       render = (
         <div id="middle">
@@ -244,7 +240,7 @@ class DossierPatient extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <ordPut />
+
           <Popup
             trigger={
               <button
@@ -273,7 +269,8 @@ class DossierPatient extends Component {
             {(close) => (
               <div className={classes.popUpAjouter}>
                 <a onClick={close}>&times;</a>
-                <form onSubmit={this.postPatient}>
+                <form onSubmit={this.postPatient} className="-form">
+                  <h4>NOM:</h4>
                   <input
                     name="nom"
                     type="text"
@@ -281,6 +278,7 @@ class DossierPatient extends Component {
                     placeholder="nom"
                     onChange={this.handlePatient}
                   />
+                  <h4>PRENOM:</h4>
                   <input
                     name="prenom"
                     type="text"
@@ -288,6 +286,7 @@ class DossierPatient extends Component {
                     placeholder="prenom"
                     onChange={this.handlePatient}
                   />
+                  <h4>EMAIL:</h4>
 
                   <input
                     name="email"
@@ -296,12 +295,18 @@ class DossierPatient extends Component {
                     placeholder="email"
                     onChange={this.handlePatient}
                   />
+                  <h4>DATE DE NAISSANCE:</h4>
+                  <div className=".-DIVd">
+                    {moment(patientObj.dateDeNaiss).format("YYYY MO DD")}
+                  </div>
                   <Datetime
                     dateFormat="YYYY-MM-DD hh:mm"
                     name="dateDeNaiss"
                     onChange={this.handlePatientdate}
                     value={patientObj.dateDeNaiss}
                   />
+                  <h4>ADRESSE:</h4>
+
                   <input
                     name="adresse"
                     type="textarea"
@@ -309,6 +314,7 @@ class DossierPatient extends Component {
                     placeholder="adresse"
                     onChange={this.handlePatient}
                   />
+                  <h4>TELE:</h4>
                   <input
                     name="tele"
                     type="text"
@@ -316,13 +322,17 @@ class DossierPatient extends Component {
                     placeholder="tele"
                     onChange={this.handlePatient}
                   />
-                  <input
+                  <h4>GENDER:</h4>
+                  <select
+                    className="box"
                     name="sexe"
-                    type="text"
-                    value={patientObj.sexe}
-                    placeholder="sexe"
                     onChange={this.handlePatient}
-                  />
+                    placeholder="Gender"
+                  >
+                    <option value="female">female</option>
+                    <option value="male">male</option>
+                  </select>
+                  <h4>NATIONALITE:</h4>
                   <input
                     name="nationalite"
                     type="text"
@@ -330,6 +340,7 @@ class DossierPatient extends Component {
                     placeholder="nationalite"
                     onChange={this.handlePatient}
                   />
+                  <h4>CIN:</h4>
                   <input
                     name="cin"
                     type="text"
@@ -338,16 +349,10 @@ class DossierPatient extends Component {
                     onChange={this.handlePatient}
                   />
 
-                  <button type="submit">post</button>
+                  <button type="submit" className="--button --button2">
+                    post
+                  </button>
                 </form>
-                <button
-                  onClick={() => {
-                    console.log("modal closed ");
-                    close();
-                  }}
-                >
-                  close modal
-                </button>
               </div>
             )}
           </Popup>
@@ -409,7 +414,8 @@ class DossierPatient extends Component {
             {(close) => (
               <div className={classes.popUpAjouter}>
                 <a onClick={close}>&times;</a>
-                <form onSubmit={this.postPatient}>
+                <form onSubmit={this.postPatient} className="-form">
+                  <h4>NOM:</h4>
                   <input
                     name="nom"
                     type="text"
@@ -417,6 +423,7 @@ class DossierPatient extends Component {
                     placeholder="nom"
                     onChange={this.handlePatient}
                   />
+                  <h4>PRENOM:</h4>
                   <input
                     name="prenom"
                     type="text"
@@ -424,6 +431,7 @@ class DossierPatient extends Component {
                     placeholder="prenom"
                     onChange={this.handlePatient}
                   />
+                  <h4>EMAIL:</h4>
 
                   <input
                     name="email"
@@ -432,12 +440,18 @@ class DossierPatient extends Component {
                     placeholder="email"
                     onChange={this.handlePatient}
                   />
+                  <h4>DATE DE NAISSANCE:</h4>
+                  <div className=".-DIVd">
+                    {moment(patientObj.dateDeNaiss).format("YYYY MO DD")}
+                  </div>
                   <Datetime
                     dateFormat="YYYY-MM-DD hh:mm"
                     name="dateDeNaiss"
                     onChange={this.handlePatientdate}
                     value={patientObj.dateDeNaiss}
                   />
+                  <h4>ADRESSE:</h4>
+
                   <input
                     name="adresse"
                     type="textarea"
@@ -445,6 +459,7 @@ class DossierPatient extends Component {
                     placeholder="adresse"
                     onChange={this.handlePatient}
                   />
+                  <h4>TELE:</h4>
                   <input
                     name="tele"
                     type="text"
@@ -452,13 +467,17 @@ class DossierPatient extends Component {
                     placeholder="tele"
                     onChange={this.handlePatient}
                   />
-                  <input
+                  <h4>GENDER:</h4>
+                  <select
+                    className="box"
                     name="sexe"
-                    type="text"
-                    value={patientObj.sexe}
-                    placeholder="sexe"
                     onChange={this.handlePatient}
-                  />
+                    placeholder="Gender"
+                  >
+                    <option value="female">female</option>
+                    <option value="male">male</option>
+                  </select>
+                  <h4>NATIONALITE:</h4>
                   <input
                     name="nationalite"
                     type="text"
@@ -466,6 +485,7 @@ class DossierPatient extends Component {
                     placeholder="nationalite"
                     onChange={this.handlePatient}
                   />
+                  <h4>CIN:</h4>
                   <input
                     name="cin"
                     type="text"
@@ -474,16 +494,10 @@ class DossierPatient extends Component {
                     onChange={this.handlePatient}
                   />
 
-                  <button type="submit">post</button>
+                  <button type="submit" className="--button --button2">
+                    post
+                  </button>
                 </form>
-                <button
-                  onClick={() => {
-                    console.log("modal closed ");
-                    close();
-                  }}
-                >
-                  close modal
-                </button>
               </div>
             )}
           </Popup>

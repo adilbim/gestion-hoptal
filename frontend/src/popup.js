@@ -6,7 +6,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
 import * as Datetime from "react-datetime";
 import moment from "moment";
-
+import "./form.css";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    overflow: "scroll",
+    height: "80vh",
+    background: "#eee",
+
+    backgroundColor: "",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -85,7 +89,9 @@ export default function SpringModal(props) {
       <button
         type="button"
         onClick={(e) => {
+          e.preventDefault();
           e.stopPropagation();
+
           handleOpen();
         }}
       >
@@ -105,7 +111,8 @@ export default function SpringModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <form onSubmit={putaPatient}>
+            <form onSubmit={putaPatient} className="-form">
+              <h4>NOM</h4>
               <input
                 name="nom"
                 type="text"
@@ -113,6 +120,7 @@ export default function SpringModal(props) {
                 placeholder="nom"
                 onChange={handle}
               />
+              <h4>PRENOM:</h4>
               <input
                 name="prenom"
                 type="text"
@@ -120,6 +128,7 @@ export default function SpringModal(props) {
                 placeholder="prenom"
                 onChange={handle}
               />
+              <h4>EMAIL:</h4>
               <input
                 name="email"
                 type="email"
@@ -127,12 +136,19 @@ export default function SpringModal(props) {
                 placeholder="email"
                 onChange={handle}
               />
+              <h4>DATE DE NAISSANCE:</h4>
+              <div className="-DIVd">
+                {moment(patientAModifier.dateDeNaiss).format("YYYY MO DD")}
+              </div>
               <Datetime
                 dateFormat="YYYY-MM-DD hh:mm"
                 name="dateDeNaiss"
                 onChange={handlePatientdate}
                 value={patientAModifier.dateDeNaiss}
+                input={false}
               />
+              <h4>ADRESSE:</h4>
+
               <input
                 name="adresse"
                 type="textarea"
@@ -140,6 +156,7 @@ export default function SpringModal(props) {
                 placeholder="adresse"
                 onChange={handle}
               />
+              <h4>TELE:</h4>
               <input
                 name="tele"
                 type="text"
@@ -147,13 +164,19 @@ export default function SpringModal(props) {
                 placeholder="tele"
                 onChange={handle}
               />
-              <input
-                name="sexe"
-                type="text"
-                value={patientAModifier.sexe}
-                placeholder="sexe"
-                onChange={handle}
-              />
+              <h4>GENDER:</h4>
+              <div className="box">
+                <select
+                  name="sexe"
+                  onChange={handle}
+                  vlaue={patientAModifier.sexe}
+                >
+                  <option value="female">female</option>
+                  <option value="male">male</option>
+                </select>
+              </div>
+
+              <h4>NATIONALITE:</h4>
               <input
                 name="nationalite"
                 type="text"
@@ -161,6 +184,7 @@ export default function SpringModal(props) {
                 placeholder="nationalite"
                 onChange={handle}
               />
+              <h4>CIN:</h4>
               <input
                 name="cin"
                 type="text"
@@ -168,7 +192,9 @@ export default function SpringModal(props) {
                 placeholder="cin"
                 onChange={handle}
               />
-              <button type="submit">post</button>
+              <button type="submit" className="--button --button2">
+                post
+              </button>
             </form>
           </div>
         </Fade>

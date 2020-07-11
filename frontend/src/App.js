@@ -11,6 +11,12 @@ import { Route, Switch } from "react-router-dom";
 import Planning from "./Planning";
 import ProfilePatient from "./ProfilePatient";
 import Bilan from "./bilan";
+import Admin from "./personnel/admin";
+import Medecin from "./personnel/medecin";
+import MedecinList from "./personnel/medecinList";
+import SecretaireList from "./personnel/secretaireList";
+
+import ListItemPersonel from "./personnel/listItemPersonel";
 
 function App() {
   return (
@@ -37,6 +43,17 @@ function App() {
           render={(props) => <Bilan {...props} />}
         />
         <Route exact path="/statistiques" render={() => <Statistiques />} />
+        <Route exact path="/personel" render={() => <Admin />} />
+
+        <Route exact path="/listMedecin" render={() => <MedecinList />} />
+        <Route exact path="/listSecretaire" render={() => <SecretaireList />} />
+
+        <Route exact path="/ajouterPerso" render={() => <Medecin />} />
+        <Route
+          exact
+          path="/profilePerso/:id"
+          render={(props) => <ListItemPersonel {...props} />}
+        />
       </Switch>
       <ListAttente />
     </div>

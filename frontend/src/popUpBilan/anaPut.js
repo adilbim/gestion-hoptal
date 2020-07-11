@@ -93,15 +93,15 @@ export default function AnaPut(props) {
 
   return (
     <div>
-      <button
-        type="button"
+      <i
+        className="fa fa-pencil --modi"
+        aria-hidden="true"
         onClick={(e) => {
           e.stopPropagation();
           handleOpen();
         }}
-      >
-        Analyses
-      </button>
+      ></i>
+
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

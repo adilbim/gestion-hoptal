@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.3.3",
     "axios": "^0.19.2",
+    "history": "^5.0.0",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "lodash": "^4.17.15",

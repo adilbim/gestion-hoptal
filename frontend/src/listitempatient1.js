@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/styles";
 import Popup from "reactjs-popup";
 import Demo from "./popup.js";
+import history from "./history";
 
 const styles = {
   // patient:{
@@ -33,6 +34,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     flexBasis: "5%",
+    background: "yellow",
   },
 
   x2: {
@@ -56,7 +58,13 @@ function ListItemPatient(props) {
   console.log("list");
 
   return (
-    <div className={classes.listItem} onClick={() => props.onClick()}>
+    <div
+      className={classes.listItem}
+      onClick={(e) => {
+        e.stopPropagation();
+        history.push(`/profilePatient/${id}`);
+      }}
+    >
       <div className={classes.atribute}>
         <i className="fa fa-user-circle x2" aria-hidden="true"></i>
       </div>
@@ -66,6 +74,7 @@ function ListItemPatient(props) {
       <div className={classes.atribute}>{data.cin}</div>
       <div className={classes.atribute}>{data.dateDeNaiss.split("T")[0]}</div>
       <div className={classes.atribute}>{data.tele}</div>
+
       <div className={classes.iconList}>
         <i className="fa fa-eye" aria-hidden="true"></i>
         <Demo

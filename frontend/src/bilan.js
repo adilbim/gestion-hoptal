@@ -22,6 +22,9 @@ const styles = {
     width: "522px",
     alignItem: "center",
   },
+  bilans: {
+    border: "1px solid rgb(106, 102, 223)",
+  },
   header: {
     color: "#98ADAC",
     height: "100px",
@@ -56,6 +59,22 @@ const styles = {
     wordWrap: "break-word",
     margin: "10px",
   },
+
+  bilan: {
+    marginLeft: "210px",
+  },
+  modi: {
+    marginLeft: "163px",
+  },
+  btn: {
+    backgroundColor: "rgb(245, 66, 215)",
+    border: "none",
+    color: "white",
+    padding: "9px 22px",
+    cursor: "pointer",
+    fontSize: "13px",
+    marginLeft: "610px",
+  },
 };
 
 const Ordenance = (props) => {
@@ -74,8 +93,8 @@ const Ordenance = (props) => {
   return (
     <div>
       <OrdPut handleChange={handleChange} ord={ord} handlePut={handlePut} />
-      <div id="ordenance">
-        <div className={classes.ord}>
+      <div id="ordenance" className={`${classes.bilan}`}>
+        <div className={`${classes.ord}  ${classes.bilans}`}>
           <div className={classes.header}>
             <div>
               <p>
@@ -122,7 +141,12 @@ const Ordenance = (props) => {
           </div>
         </div>
       </div>
-      <button onClick={() => printDocument("ordenance")}>imprimer</button>
+      <button
+        className={classes.btn}
+        onClick={() => printDocument("ordenance")}
+      >
+        <i class="fa fa-download"></i> Download
+      </button>
     </div>
   );
 };
@@ -152,8 +176,8 @@ const Analyses = (props) => {
         hadleDrop={handleDrop}
         analyses={analyses}
       />
-      <div id="analyses">
-        <div className={classes.ord}>
+      <div id="analyses" className={`${classes.bilan}`}>
+        <div className={`${classes.ord}  ${classes.bilans}`}>
           <div className={classes.header}>
             <div>
               <p>
@@ -177,7 +201,7 @@ const Analyses = (props) => {
 
           <div className={classes.nameAge}>
             <p>
-              Mr `{patient.nom} {patient.prenom}`
+              Mr {patient.nom} {patient.prenom}
               <br />
               Age: {patient.date}
             </p>
@@ -195,7 +219,9 @@ const Analyses = (props) => {
           </div>
         </div>
       </div>
-      <button onClick={() => printDocument("analyses")}>imprimer</button>
+      <button className={classes.btn} onClick={() => printDocument("analyses")}>
+        <i class="fa fa-download"></i> Download
+      </button>
     </div>
   );
 };
@@ -207,8 +233,8 @@ const Consultation1 = (props) => {
     <div>
       <ConPut handleChange={handleChange} handlePut={handlePut} con={con} />
 
-      <div id="consultation">
-        <div className={classes.ord}>
+      <div id="consultation" className={`${classes.bilan} `}>
+        <div className={`${classes.ord}  ${classes.bilans}`}>
           <div className={classes.header}>
             <div>
               <p>
@@ -245,10 +271,16 @@ const Consultation1 = (props) => {
               cinq siècles, mais s'est aussi adapté à la bureautique
               informatique, sans que son contenu n'en soit modifié.
             </div>
+            <p className={classes.sig}>Signature:</p>
           </div>
         </div>
       </div>
-      <button onClick={() => printDocument("consultation")}>Imprimer</button>
+      <button
+        className={classes.btn}
+        onClick={() => printDocument("consultation")}
+      >
+        <i class="fa fa-download"></i> Download
+      </button>
     </div>
   );
 };
@@ -507,7 +539,6 @@ class Bilan extends React.Component {
   }
 
   async handleAnaPut(e) {
-    console.log("heloooooooo");
     const res = await axios(`/api/dossier/${this.state.dataRdv.idPatient}`);
     console.log(res.data[0].id);
 

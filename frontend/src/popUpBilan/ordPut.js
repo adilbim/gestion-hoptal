@@ -70,15 +70,14 @@ export default function OrdenancePut(props) {
 
   return (
     <div>
-      <button
-        type="button"
+      <i
+        className="fa fa-pencil --modi"
+        aria-hidden="true"
         onClick={(e) => {
           e.stopPropagation();
           handleOpen();
         }}
-      >
-        OrdenancePut
-      </button>
+      ></i>
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

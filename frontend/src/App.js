@@ -7,7 +7,7 @@ import RendezVous from "./RendezVous";
 import DossierPatient from "./DossierPatient";
 import RendezVousAcceil from "./rendezVousAcceill";
 import Statistiques from "./Statistiques";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Planning from "./Planning";
 import ProfilePatient from "./ProfilePatient";
 import Bilan from "./bilan";
@@ -18,46 +18,146 @@ import SecretaireList from "./personnel/secretaireList";
 
 import ListItemPersonel from "./personnel/listItemPersonel";
 
-function App() {
-  return (
-    <div className="container">
-      <Menu />
-      <Switch>
-        <Route exact path="/" render={() => <Middle />} />
-        <Route exact path="/rendezVous" render={() => <RendezVousAcceil />} />
-        <Route
-          exact
-          path="/planning/:idUser"
-          render={(props) => <Planning {...props} />}
-        />
-        <Route
-          exact
-          path="/profilePatient/:idPatient"
-          render={(props) => <ProfilePatient {...props} />}
-        />
-        <Route exact path="/newRendezVous" render={() => <RendezVous />} />
-        <Route exact path="/dossierPatient" render={() => <DossierPatient />} />
-        <Route
-          exact
-          path="/bilan/:id"
-          render={(props) => <Bilan {...props} />}
-        />
-        <Route exact path="/statistiques" render={() => <Statistiques />} />
-        <Route exact path="/personel" render={() => <Admin />} />
+class App extends React.Component {
+  // constructor(props){
+  //   super(props);
+  //   this.state = {isLoggedIn: false, user:{}};
+  // }
+  //   useEffect(()=>{
+  //     checkUser()
+  //     console.log(localStorage.getItem('user'));
 
-        <Route exact path="/listMedecin" render={() => <MedecinList />} />
-        <Route exact path="/listSecretaire" render={() => <SecretaireList />} />
+  //   },[localStorage.getItem('user')]);
+  //   console.log(user,isLoggedIn);
+  // //   useEffect(()=>{
+  // //     //setUser('please');
+  // //    //setIsLoggedIn(true);
+  // //     //debugger;
+  // //     console.log('senconde usEffect',isLoggedIn, user);
+  // //  },[user])
+  // const checkUser = () => {
+  //   return jwt.verify(localStorage.getItem('user'), 'shhhhh', function(err, decoded) {
 
-        <Route exact path="/ajouterPerso" render={() => <Medecin />} />
-        <Route
-          exact
-          path="/profilePerso/:id"
-          render={(props) => <ListItemPersonel {...props} />}
-        />
-      </Switch>
-      <ListAttente />
-    </div>
-  );
+  //     if(err) { console.log(err);}
+  //     return setIsLoggedIn(true);
+  //     //debugger;
+  //   });
+  // }
+  // , (err, decoded) => {
+  //   this.setState({isLoggedIn: true, user: decoded});
+  //   console.log(this.state);
+  // });
+  // async componentDidMount(){
+  //   try{
+  //   let Vtoken = jwt.verify(localStorage.getItem('user'), 'shhhhh');
+  //   }catch(err){
+  //     console.log(err);
+  //   }
+  //   this.setState({isLoggedIn: true});
+  //   console.log(this.state);
+  // }
+  render() {
+    return (
+      <div className="container">
+        <Menu />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={(props) =>
+              localStorage.getItem("isLoggedIn") ? (
+                <Middle {...props} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/rendezVous"
+            render={(props) => <RendezVousAcceil {...props} />}
+          />
+          <Route
+            exact
+            path="/planning/:idUser"
+            render={(props) =>
+              localStorage.getItem("isLoggedIn") ? (
+                <Planning {...props} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/profilePatient/:idPatient"
+            render={(props) =>
+              localStorage.getItem("isLoggedIn") ? (
+                <ProfilePatient {...props} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/newRendezVous"
+            render={(props) =>
+              localStorage.getItem("isLoggedIn") ? (
+                <RendezVous {...props} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/dossierPatient"
+            render={() =>
+              localStorage.getItem("isLoggedIn") ? (
+                <DossierPatient />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/bilan/:id"
+            render={(props) => <Bilan {...props} />}
+          />
+          <Route exact path="/statistiques" render={() => <Statistiques />} />
+          <Route exact path="/personel" render={() => <Admin />} />
+
+          <Route exact path="/listMedecin" render={() => <MedecinList />} />
+          <Route
+            exact
+            path="/listSecretaire"
+            render={() => <SecretaireList />}
+          />
+
+          <Route exact path="/ajouterPerso" render={() => <Medecin />} />
+          <Route
+            exact
+            path="/profilePerso/:id"
+            render={(props) => <ListItemPersonel {...props} />}
+          />
+          <Route
+            exact
+            path="/statistiques"
+            render={() =>
+              localStorage.getItem("isLoggedIn") ? (
+                <Statistiques />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+        </Switch>
+        <ListAttente />
+      </div>
+    );
+  }
 }
 
 export default App;

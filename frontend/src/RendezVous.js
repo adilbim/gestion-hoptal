@@ -7,11 +7,11 @@ import RDVCalender from "./RDVCalender";
 import moment from "moment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import io from "socket.io-client";
+//import io from "socket.io-client";
 const styles = {
   root: {
-    width: "100%",
-    height: "100%",
+    // width: "100%",
+    // height: "100%",
   },
   floatingButton: {
     position: "fixed",
@@ -84,6 +84,11 @@ class RendezVous extends React.Component {
       //console.log('from the delete request');
       axios.delete(`api/rendezVous/${data.id}`);
     }
+    this.setState({
+      patientChosen: false,
+      medecinChosen: false,
+      patient: "",
+    });
   };
   async componentDidMount() {
     
@@ -115,7 +120,7 @@ class RendezVous extends React.Component {
   };
 
   addNewPatient = () => {
-    alert("we will add the feature soon, stay tuned!");
+    this.props.history.push('/dossierPatient');
   };
   render() {
     const { classes } = this.props;
@@ -137,7 +142,7 @@ class RendezVous extends React.Component {
             <input
               className="searchList"
               type="text"
-              placeholder="Chercher Medecin"
+              placeholder="Chercher Patient"
               name="patient"
               value={patient}
               onChange={this.handleChange}

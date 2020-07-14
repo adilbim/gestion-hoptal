@@ -9,6 +9,8 @@ import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import _ from "lodash";
 
+import "../form.css";
+
 const getOptions = (number, prefix = "Choice ") =>
   _.times(number, (index) => ({
     key: index,
@@ -23,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
+    overflow: "scroll",
+
+    background: "#eee",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -99,7 +104,7 @@ export default function ConsultationPut(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <form onSubmit={handlePut}>
+            <form onSubmit={handlePut} className="-form">
               <textarea
                 value={con.observation}
                 name="observation"
@@ -108,7 +113,9 @@ export default function ConsultationPut(props) {
               />
               <input type="text" name="poids" onChange={handleChange} />
 
-              <button type="submit">save</button>
+              <button type="submit" className="--button --button2">
+                save
+              </button>
             </form>
           </div>
         </Fade>

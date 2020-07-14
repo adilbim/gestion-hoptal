@@ -4,10 +4,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is required for IE 11 support
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import _ from "lodash";
+import "../form.css";
 
 const getOptions = (number, prefix = "Choice ") =>
   _.times(number, (index) => ({
@@ -24,9 +27,24 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
+    overflow: "scroll",
+
+    background: "#eee",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  floatingButton: {
+    position: "fixed",
+    bottom: "50px",
+    right: "480px",
+
+    cursor: "pointer",
+    background: "rgb(235, 52, 113)",
+    color: "white",
+    "&:hover": {
+      background: "#5f5bc8",
+    },
   },
 }));
 
@@ -82,7 +100,7 @@ export default function Ordenance(props) {
 
   return (
     <div>
-      <button
+      {/* <button
         type="button"
         onClick={(e) => {
           e.stopPropagation();
@@ -90,7 +108,18 @@ export default function Ordenance(props) {
         }}
       >
         Ordenance
-      </button>
+      </button> */}
+      <Fab
+        onClick={(e) => {
+          e.stopPropagation();
+          handleOpen();
+        }}
+        title="Consulatation"
+        aria-label="add"
+        className={classes.floatingButton}
+      >
+        <AddIcon />
+      </Fab>
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -105,7 +134,7 @@ export default function Ordenance(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="-form">
               <input
                 type="text"
                 name="titre"
@@ -129,7 +158,9 @@ export default function Ordenance(props) {
                 onChange={handleDrop}
                 placeholder="I close on change"
               />{" "}
-              <button type="submit">save</button>
+              <button type="submit" className="--button --button2">
+                save
+              </button>
             </form>
           </div>
         </Fade>

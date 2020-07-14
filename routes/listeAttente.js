@@ -44,11 +44,11 @@ router.get("/listAttente/R/:id", (req, res) => {
   });
 });
 
-
-
-router.put('/listAttente', (req, res) => {
+router.put("/listAttente", (req, res) => {
   let data = req.body;
-  sql = `update rendezVous set presence = ${!data.presence}  where id = '${data.id}';`;
+  sql = `update rendezVous set presence = ${!data.presence}  where id = '${
+    data.id
+  }';`;
   console.log(sql);
   con.query(sql, (err, result) => {
     if (err) throw err;

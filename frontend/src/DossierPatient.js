@@ -146,7 +146,6 @@ class DossierPatient extends Component {
   }
 
   handlePatientdate(date) {
-    var d = moment(date).format("yyyy-mm-dd hh:mm:ss");
     console.log(date);
     var data1 = date._d.toString().split(" ")[1];
     var data2 = date._d.toString().split(" ")[2];
@@ -232,7 +231,7 @@ class DossierPatient extends Component {
         <div id="middle">
           <div>
             <input
-              className={classes.input}
+              className="searchList"
               type="text"
               placeholder="Chercher Patient"
               name="patient"

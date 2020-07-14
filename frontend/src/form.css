@@ -2,9 +2,9 @@
 
 .-form {
   font-family: "Open Sans", sans-serif;
-  display: flex;
-  flex-direction: column;
-  margin: 5px;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 5px !important;
 }
 
 .-form input {

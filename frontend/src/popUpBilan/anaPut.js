@@ -9,6 +9,7 @@ import axios from "axios";
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import _ from "lodash";
+import "../form.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   paper: {
+    overflow: "scroll",
+
+    background: "#eee",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -69,7 +73,7 @@ export default function AnaPut(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const anaValue = ana.typeA.split(" ");
+  const anaValue = ana.typeA.split("*");
   console.log(anaValue);
 
   const getAnalyses = () => {
@@ -116,44 +120,48 @@ export default function AnaPut(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <form onSubmit={handlePut}>
-              <input
-                type="text"
-                name="titre"
-                placeholder="titre"
-                value={ana.titre}
-                onChange={handleChange}
-              />
-              <textarea
-                name="observation"
-                value={ana.observation}
-                placeholder="Observstion..."
-                onChange={handleChange}
-              />
-              <Dropdown
-                multiple
-                search
-                selection
-                closeOnChange
-                value={anaValue}
-                options={getAnalyses()}
-                onChange={handleDrop}
-                placeholder="type Analyses"
-              />{" "}
-              <Dropdown
-                multiple
-                search
-                selection
-                closeOnChange
-                options={[
-                  { key: 0, text: "fffff", value: 0 },
-                  { key: 1, text: "fkk", value: 1 },
-                ]}
-                // onChange={handleDrop}
-                placeholder="types Radiologies"
-              />{" "}
-              <button type="submit">save</button>
-            </form>
+            <div className="-form">
+              <form onSubmit={handlePut}>
+                <input
+                  type="text"
+                  name="titre"
+                  placeholder="titre"
+                  value={ana.titre}
+                  onChange={handleChange}
+                />
+                <textarea
+                  name="observation"
+                  value={ana.observation}
+                  placeholder="Observstion..."
+                  onChange={handleChange}
+                />
+                <Dropdown
+                  multiple
+                  search
+                  selection
+                  closeOnChange
+                  value={anaValue}
+                  options={getAnalyses()}
+                  placeholder="type Analyses"
+                  onChange={handleDrop}
+                />{" "}
+                <Dropdown
+                  multiple
+                  search
+                  selection
+                  closeOnChange
+                  options={[
+                    { key: 0, text: "fffff", value: 0 },
+                    { key: 1, text: "fkk", value: 1 },
+                  ]}
+                  // onChange={handleDrop}
+                  placeholder="types Radiologies"
+                />{" "}
+                <button type="submit" className="--button --button2">
+                  save
+                </button>
+              </form>
+            </div>
           </div>
         </Fade>
       </Modal>

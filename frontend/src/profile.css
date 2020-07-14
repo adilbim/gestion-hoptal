@@ -14,9 +14,11 @@
   -moz-box-shadow: -2px 4px 33px -9px rgba(223, 223, 223, 1);
   box-shadow: -2px 4px 33px -9px rgba(223, 223, 223, 1);
 }
-._profile > div {
-  /*border : 1px solid #f8f8f8;*/
-}
+/* ._profile > div {
+  border : 1px solid #f8f8f8;
+} 
+*/
+
 
 ._picture {
   display: flex;

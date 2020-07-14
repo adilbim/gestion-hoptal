@@ -8,6 +8,7 @@ import { useSpring, animated } from "react-spring/web.cjs"; // web.cjs is requir
 import { Dropdown } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import _ from "lodash";
+import "../form.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
+    overflow: "scroll",
+
+    background: "#eee",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -92,7 +96,7 @@ export default function OrdenancePut(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <form onSubmit={handlePut}>
+            <form onSubmit={handlePut} className="-form">
               <input
                 type="text"
                 name="titre"
@@ -118,7 +122,9 @@ export default function OrdenancePut(props) {
                 onChange={handleDrop}
                 placeholder="I close on change"
               />{" "}
-              <button type="submit">save</button>
+              <button type="submit" className="--button --button2">
+                save
+              </button>
             </form>
           </div>
         </Fade>

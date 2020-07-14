@@ -86,17 +86,17 @@ export default function SpringModal(props) {
 
   return (
     <div>
-      <button
-        type="button"
+      <i
+        className="fa fa-pencil"
+        aria-hidden="true"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
 
           handleOpen();
         }}
-      >
-        Modifier
-      </button>
+      ></i>
+
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

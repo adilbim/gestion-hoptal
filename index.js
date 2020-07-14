@@ -22,11 +22,13 @@ var planning = require("./routes/planning");
 var listAttente = require("./routes/listeAttente");
 var dossier = require("./routes/dossier");
 var secretaire = require("./routes/secretaire");
+var auth = require("./routes/auth");
 app.use("/api", patient);
 app.use("/api", rendezVous);
 app.use("/api", medecin);
 app.use("/api", planning);
 app.use("/api", listAttente);
+app.use("/api", auth);
 app.use("/api", dossier);
 app.use("/api", secretaire);
 

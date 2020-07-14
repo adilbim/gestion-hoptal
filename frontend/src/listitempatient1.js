@@ -34,7 +34,6 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     flexBasis: "5%",
-    background: "yellow",
   },
 
   x2: {
@@ -58,25 +57,29 @@ function ListItemPatient(props) {
   console.log("list");
 
   return (
-    <div
-      className={classes.listItem}
-      onClick={(e) => {
-        e.stopPropagation();
-        history.push(`/profilePatient/${id}`);
-      }}
-    >
-      <div className={classes.atribute}>
-        <i className="fa fa-user-circle x2" aria-hidden="true"></i>
-      </div>
-      <div
-        className={`${classes.atribute} ${classes.patientName}`}
-      >{`${data.nom} ${data.prenom}`}</div>
-      <div className={classes.atribute}>{data.cin}</div>
-      <div className={classes.atribute}>{data.dateDeNaiss.split("T")[0]}</div>
-      <div className={classes.atribute}>{data.tele}</div>
+    <div>
+      <div className={classes.listItem}>
+        <div
+          className={classes.atribute}
+          onClick={(e) => {
+            e.stopPropagation();
+            history.push(`/profilePatient/${id}`);
+            window.location.reload(true);
+          }}
+        >
+          <i className="fa fa-user-circle x2" aria-hidden="true"></i>
+        </div>
+        <div
+          className={`${classes.atribute} ${classes.patientName}`}
+        >{`${data.nom} ${data.prenom}`}</div>
+        <div className={classes.atribute}>{data.cin}</div>
+        <div className={classes.atribute}>{data.dateDeNaiss.split("T")[0]}</div>
+        <div className={classes.atribute}>{data.tele}</div>
 
-      <div className={classes.iconList}>
-        <i className="fa fa-eye" aria-hidden="true"></i>
+        <div className={classes.iconList}>
+          <i className="fa fa-eye" aria-hidden="true"></i>
+        </div>
+
         <Demo
           putPatient={(e) => {
             putPatient(id);

@@ -17,7 +17,7 @@ import moment from "moment";
 
 const styles = {
   ord: {
-    background: "",
+    background: "white",
     heght: "550px",
     width: "522px",
     alignItem: "center",
@@ -173,7 +173,7 @@ const Analyses = (props) => {
         handleChange={handleChange}
         handlePut={handlePut}
         ana={ana}
-        hadleDrop={handleDrop}
+        handleDrop={handleDrop}
         analyses={analyses}
       />
       <div id="analyses" className={`${classes.bilan}`}>
@@ -441,7 +441,6 @@ class Bilan extends React.Component {
   }
 
   async handleOrdPut(e) {
-    console.log("hello ord");
     const res = await axios(`/api/dossier/${this.state.dataRdv.idPatient}`);
     console.log(res.data[0].id);
 
@@ -509,7 +508,7 @@ class Bilan extends React.Component {
   handleDropAna(e, d) {
     console.log(d.value);
 
-    var typeA = d.value.join(" ");
+    var typeA = d.value.join("*");
     console.log(typeA);
     this.setState({ ana: { ...this.state.ana, typeA: typeA } });
     //axios post medicament

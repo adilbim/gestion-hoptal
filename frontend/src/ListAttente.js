@@ -1,20 +1,21 @@
 
 
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import moment from 'moment';
 import "moment/locale/fr";
 import io from "socket.io-client";
-
+import jwt from 'jsonwebtoken';
+import {Link} from 'react-router-dom';
 
 // fake data generator
-const getItems = (count, offset = 0) =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k + offset}`,
-        content: `item ${k + offset}`
-    }));
+// const getItems = (count, offset = 0) =>
+//     Array.from({ length: count }, (v, k) => k).map(k => ({
+//         id: `item-${k + offset}`,
+//         content: `item ${k + offset}`
+//     }));
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -67,7 +68,7 @@ class App extends Component {
     state = {
         items: [],
         selected: [],
-        listMedecin: [], search: '', searchList: [], medecin:''
+        listMedecin: [], search: '', searchList: [], medecin:{nom:"nom"}, user:{}
     };
 
     /**
@@ -154,7 +155,15 @@ class App extends Component {
             items:[...this.state.items,data]
            });
       });
-
+      if(localStorage.getItem('user')){ 
+      let user = jwt.verify(localStorage.getItem('user'), 'shhhhh');
+      this.setState({user});
+       if(this.state.user.role === 'medecin'){
+        let rdvE = await axios(`/api/listAttente/E/${this.state.user.id}`);
+        let rdvR = await axios(`/api/listAttente/R/${this.state.user.id}`);  
+        this.setState({items: rdvE.data, selected: rdvR.data, medecin: {id: this.state.user.id},search: ''});
+       }
+      }
     }
 
     handleChange = e =>{
@@ -180,6 +189,7 @@ class App extends Component {
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
+        let {user} = this.state;
         let listMedecin = [];
         if(this.state.listMedecin.length > 0 && this.state.search.length > 0){
         listMedecin = this.state.searchList.map(elm => <div onClick={()=> this.chooseMedecin(elm)} className="dropDownItem">{elm.nom+" "+elm.prenom}</div>)
@@ -191,15 +201,23 @@ class App extends Component {
         today.local('fr');
         return (
           <div id="right">
-            <div class="lsearch">
-               <input class="searchList"type="text" onChange={this.handleChange} placeholder="Chercher Medecin" />
+            <div className="lsearch">
+            {user.role === 'secretaire' ? 
+               <>
+               <input className="searchList"type="text" onChange={this.handleChange} placeholder="Chercher Medecin" />
                <div className={`dropDown ${this.state.search.length > 0 && 'showDropDown'}`}>
                 {listMedecin}
                </div>
-               <div class="listInfo">
-                   <span>{today.format('MMM, DD dddd')}</span> <span>|</span> <span>{'Dr.'+this.state.medecin.nom}</span>
+               </>
+            : false}
+               <div className="listInfo">
+                   <span>{today.format('MMM, DD dddd')}</span> <span>|</span> 
+                   <span>
+                    {this.state.medecin.nom && user.role === 'secretaire' ? `Dr.${this.state.medecin.nom}` : `Dr.${user.nom}`}
+                   </span>
                </div>
              </div>
+            
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="droppable">
                     {(provided, snapshot) => (
@@ -222,11 +240,11 @@ class App extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {/* {item.content} */}
-                                            <div class="nameDate">
-                                            <div class="name"><i class="fa fa-user-circle" aria-hidden="true"></i>{' '+item.nom+' '+ item.prenom}</div>
-                                            <div class="cin">{item.cin}</div>
+                                            <div className="nameDate">
+                                            <div className="name"><i className="fa fa-user-circle" aria-hidden="true"></i>{' '+item.nom+' '+ item.prenom}</div>
+                                            <div className="cin">{item.cin}</div>
                                           </div>
-                                            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
+                                            <div className="time"><i className="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
                                          </div>
                                     )}
                                 </Draggable>
@@ -255,11 +273,11 @@ class App extends Component {
                                                 provided.draggableProps.style
                                             )}>
                                             {/* {item.content} */}
-                                            <div class="nameDate">
-                                            <div class="name"><i class="fa fa-user-circle" aria-hidden="true"></i>{item.nom+' '+ item.prenom}</div>
-                                            <div class="cin">{item.cin}</div>
+                                            <div className="nameDate">
+                                            <div className="name"><i className="fa fa-user-circle" aria-hidden="true"></i>{item.nom+' '+ item.prenom}</div>
+                                            <div className="cin">{item.cin}</div>
                                           </div>
-                                            <div class="time"><i class="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
+                                            <div className="time"><i className="fa fa-clock-o" aria-hidden="true"></i>{moment(item.date).format('hh:mm:ss')}</div>
                                         </div>
                                     )}
                                 </Draggable>
@@ -269,9 +287,9 @@ class App extends Component {
                     )}
                 </Droppable>
             </DragDropContext>
-            <div class="link">
+            <div className="link">
               
-               <a href="#">les listes d'attendes</a>
+               <Link to="/tvList">les listes d'attendes</Link>
              </div>
           </div>
         );

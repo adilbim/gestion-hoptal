@@ -33,4 +33,14 @@ router.get("/allMedecin", (req, res) => {
   });
 });
 
+router.get("/allMedecins", (req, res) => {
+  var sql = "select * from user ";
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+    else {
+      res.send(result);
+    }
+  });
+});
+
 module.exports = router;

@@ -17,6 +17,8 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.3.3",
     "axios": "^0.19.2",
+    "d3-scale": "^3.2.1",
+    "d3-scale-chromatic": "^1.5.0",
     "history": "^5.0.0",
     "html2canvas": "^1.0.0-rc.5",
     "jsonwebtoken": "^8.5.1",

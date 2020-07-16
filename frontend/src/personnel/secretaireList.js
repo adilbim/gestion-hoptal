@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 import * as Datetime from "react-datetime";
+import ListItem from "./secretaireList";
 
 class SecretaireList extends React.Component {
   constructor(props) {
@@ -12,12 +13,15 @@ class SecretaireList extends React.Component {
     };
   }
 
-  componentDidMount() {
-    var res = axios("/api/allSecretaire");
+  async componentDidMount() {
+    var res = await axios("/api/allSecretaires");
+    this.setState({ dataSec: res.data });
   }
   render() {
-    let render = this.state.dataSec.map((d) => <listItem data={d} />);
-    return <div></div>;
+    let render = this.state.dataSec.map((d, i) => (
+      <ListItem data={d} key={i} />
+    ));
+    return render;
   }
 }
 

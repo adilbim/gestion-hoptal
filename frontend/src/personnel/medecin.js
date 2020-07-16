@@ -60,6 +60,7 @@ class Medecin extends React.Component {
           <select name="role" onChange={this.handleChange}>
             <option value="secretaire">secretaire</option>
             <option value="medecin">medecin</option>
+            <option value="admin">admin</option>
           </select>
           <input
             name="username"

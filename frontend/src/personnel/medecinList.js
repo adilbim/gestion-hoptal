@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import moment from "moment";
 import * as Datetime from "react-datetime";
-import ListItem from "./medecinList";
+import ListItem from "./listItemPersonel";
 
 class Medecin extends React.Component {
   constructor(props) {
@@ -13,12 +13,14 @@ class Medecin extends React.Component {
     };
   }
 
-  componentDidMount() {
-    var res = axios("/api/allMedecin");
+  async componentDidMount() {
+    var res = await axios("/api/allMedecins");
+    console.log(res);
+    this.setState({ dataMedecin: res.data });
   }
   render() {
-    let render = this.state.dataMedecin.map((d) => <listItem data={d} />);
-    return <div></div>;
+    let render = this.state.dataMedecin.map((d) => <ListItem data={d} />);
+    return <div id="middle">{render}</div>;
   }
 }
 
